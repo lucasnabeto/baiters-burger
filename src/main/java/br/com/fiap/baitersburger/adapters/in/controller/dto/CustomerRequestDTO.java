@@ -1,10 +1,10 @@
-package br.com.fiap.baitersburger.adapters.in.controller.request;
+package br.com.fiap.baitersburger.adapters.in.controller.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class CustomerRequest {
+public class CustomerRequestDTO {
 
     @NotBlank
     private String cpf;

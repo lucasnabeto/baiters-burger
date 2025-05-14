@@ -1,7 +1,7 @@
 package br.com.fiap.baitersburger.config;
 
-import br.com.fiap.baitersburger.application.core.usecase.FindCustomerByCpfUseCase;
-import br.com.fiap.baitersburger.application.ports.out.FindCustomerByCpfOutputPort;
+import br.com.fiap.baitersburger.application.core.usecase.customer.FindCustomerByCpfUseCase;
+import br.com.fiap.baitersburger.application.ports.out.customer.FindCustomerByCpfOutputPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
