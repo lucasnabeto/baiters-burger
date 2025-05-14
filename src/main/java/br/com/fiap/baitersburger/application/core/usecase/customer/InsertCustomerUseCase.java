@@ -1,8 +1,8 @@
-package br.com.fiap.baitersburger.application.core.usecase;
+package br.com.fiap.baitersburger.application.core.usecase.customer;
 
 import br.com.fiap.baitersburger.application.core.domain.Customer;
-import br.com.fiap.baitersburger.application.ports.in.InsertCustomerInputPort;
-import br.com.fiap.baitersburger.application.ports.out.InsertCustomerOutputPort;
+import br.com.fiap.baitersburger.application.ports.in.customer.InsertCustomerInputPort;
+import br.com.fiap.baitersburger.application.ports.out.customer.InsertCustomerOutputPort;
 
 public class InsertCustomerUseCase implements InsertCustomerInputPort {
 

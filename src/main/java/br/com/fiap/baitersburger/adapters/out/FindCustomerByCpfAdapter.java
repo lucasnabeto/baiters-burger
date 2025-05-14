@@ -3,7 +3,7 @@ package br.com.fiap.baitersburger.adapters.out;
 import br.com.fiap.baitersburger.adapters.out.repository.CustomerRepository;
 import br.com.fiap.baitersburger.adapters.out.repository.mappers.CustomerEntityMapper;
 import br.com.fiap.baitersburger.application.core.domain.Customer;
-import br.com.fiap.baitersburger.application.ports.out.FindCustomerByCpfOutputPort;
+import br.com.fiap.baitersburger.application.ports.out.customer.FindCustomerByCpfOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

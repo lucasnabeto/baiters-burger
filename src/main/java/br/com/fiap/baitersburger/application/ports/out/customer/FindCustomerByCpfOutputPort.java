@@ -1,4 +1,4 @@
-package br.com.fiap.baitersburger.application.ports.out;
+package br.com.fiap.baitersburger.application.ports.out.customer;
 
 import br.com.fiap.baitersburger.application.core.domain.Customer;
 
