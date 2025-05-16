@@ -1,7 +1,6 @@
 package br.com.fiap.baitersburger.application.core.domain;
 
 public class Customer {
-
     private String cpf;
     private String name;
     private String email;

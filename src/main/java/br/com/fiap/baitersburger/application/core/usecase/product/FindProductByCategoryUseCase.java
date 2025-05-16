@@ -16,10 +16,8 @@ public class FindProductByCategoryUseCase implements FindProductByCategoryInputP
 
     @Override
     public List<Product> findByCategory(String category) {
-        return findProductByCategoryOutputPort
-                        .findByCategory(category)
+        return findProductByCategoryOutputPort.findByCategory(category)
                         .stream()
-                        .filter((p)-> p.getCategory().toString().equals(category))
                         .toList();
     }
 }

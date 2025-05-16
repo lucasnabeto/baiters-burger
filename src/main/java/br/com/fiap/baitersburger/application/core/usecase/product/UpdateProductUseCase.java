@@ -17,7 +17,8 @@ public class UpdateProductUseCase implements UpdateProductInputPort {
 
     @Override
     public void update(String id, Product product) {
-        findProductByIdInputPort.findById(id);
-        updateProductOutputPort.update(product);
+        var abc = findProductByIdInputPort.findById(id);
+        abc.setProductName(product.getProductName());
+        updateProductOutputPort.update(abc);
     }
 }

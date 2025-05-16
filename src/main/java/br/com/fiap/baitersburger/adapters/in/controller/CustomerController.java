@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
-
     @Autowired
     private CustomerMapper customerMapper;
 
@@ -24,7 +23,6 @@ public class CustomerController {
     @Autowired
     FindCustomerByCpfInputPort findCustomerByCpfInputPort;
 
-
     @GetMapping("/{cpf}")
     public ResponseEntity<CustomerResponseDTO> find(@PathVariable final String cpf) {
         var customer = findCustomerByCpfInputPort.find(cpf);
@@ -32,12 +30,10 @@ public class CustomerController {
         return ResponseEntity.ok().body(customerResponseDTO);
     }
 
-
     @PostMapping
     public ResponseEntity<Customer> insert(@Valid @RequestBody CustomerRequestDTO customerRequestDTO) {
         var customer = customerMapper.toCustomer(customerRequestDTO);
         insertCustomerInputPort.insert(customer);
         return ResponseEntity.ok().build();
     }
-
 }
