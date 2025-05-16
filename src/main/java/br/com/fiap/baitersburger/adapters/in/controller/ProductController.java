@@ -63,7 +63,8 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable String id, @Valid @RequestBody ProductRequestDTO productRequestDTO){
         var product = productMapper.toProduct(productRequestDTO);
-        updateProductInputPort.update(id, product);
+        product.setId(id);
+        updateProductInputPort.update(product);
         return ResponseEntity.noContent().build();
     }
 

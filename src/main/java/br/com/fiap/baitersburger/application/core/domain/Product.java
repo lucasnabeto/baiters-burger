@@ -4,11 +4,20 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class Product {
+    private String id;
     private String productName;
     private Category category;
     private BigDecimal price;
     private String description;
     private List<String> imagesUrls;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getProductName() {
         return productName;

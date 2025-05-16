@@ -1,5 +1,6 @@
 package br.com.fiap.baitersburger.adapters.out.repository.entity;
 
+import br.com.fiap.baitersburger.application.core.domain.Category;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,7 +15,7 @@ public class ProductEntity {
     private String id;
     private String productName;
     private BigDecimal price;
-    private String category;
+    private Category category;
     private List<String> imagesUrls;
     private String description;
 }
