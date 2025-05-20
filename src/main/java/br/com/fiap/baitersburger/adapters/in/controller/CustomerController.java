@@ -1,11 +1,11 @@
 package br.com.fiap.baitersburger.adapters.in.controller;
 
-import br.com.fiap.baitersburger.adapters.in.controller.dto.CustomerRequestDTO;
-import br.com.fiap.baitersburger.adapters.in.controller.dto.CustomerResponseDTO;
+import br.com.fiap.baitersburger.adapters.in.controller.dto.customer.CustomerRequestDTO;
+import br.com.fiap.baitersburger.adapters.in.controller.dto.customer.CustomerResponseDTO;
 import br.com.fiap.baitersburger.adapters.in.controller.mapper.CustomerMapper;
-import br.com.fiap.baitersburger.application.core.domain.Customer;
-import br.com.fiap.baitersburger.application.ports.in.customer.FindCustomerByCpfInputPort;
-import br.com.fiap.baitersburger.application.ports.in.customer.InsertCustomerInputPort;
+import br.com.fiap.baitersburger.core.domain.model.Customer;
+import br.com.fiap.baitersburger.core.application.ports.in.customer.FindCustomerByCpfInputPort;
+import br.com.fiap.baitersburger.core.application.ports.in.customer.InsertCustomerInputPort;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

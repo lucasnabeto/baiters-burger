@@ -1,7 +1,7 @@
 package br.com.fiap.baitersburger.config.customer;
 
-import br.com.fiap.baitersburger.application.core.usecase.customer.InsertCustomerUseCase;
-import br.com.fiap.baitersburger.application.ports.out.customer.InsertCustomerOutputPort;
+import br.com.fiap.baitersburger.core.application.usecase.customer.InsertCustomerUseCase;
+import br.com.fiap.baitersburger.core.domain.ports.out.customer.InsertCustomerOutputPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

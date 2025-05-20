@@ -1,6 +1,6 @@
 package br.com.fiap.baitersburger.adapters.in.controller.exceptions;
 
-import br.com.fiap.baitersburger.application.exceptions.CustomerNotFoundException;
+import br.com.fiap.baitersburger.core.exceptions.CustomerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

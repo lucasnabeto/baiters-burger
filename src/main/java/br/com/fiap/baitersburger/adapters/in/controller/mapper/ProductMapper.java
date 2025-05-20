@@ -1,9 +1,9 @@
 package br.com.fiap.baitersburger.adapters.in.controller.mapper;
 
-import br.com.fiap.baitersburger.adapters.in.controller.dto.ProductRequestDTO;
-import br.com.fiap.baitersburger.adapters.in.controller.dto.ProductResponseDTO;
-import br.com.fiap.baitersburger.adapters.out.repository.entity.ProductEntity;
-import br.com.fiap.baitersburger.application.core.domain.Product;
+import br.com.fiap.baitersburger.adapters.in.controller.dto.product.ProductRequestDTO;
+import br.com.fiap.baitersburger.adapters.in.controller.dto.product.ProductResponseDTO;
+import br.com.fiap.baitersburger.adapters.out.mongodb.repository.entity.ProductEntity;
+import br.com.fiap.baitersburger.core.domain.model.Product;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

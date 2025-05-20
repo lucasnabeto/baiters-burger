@@ -1,8 +1,8 @@
 package br.com.fiap.baitersburger.config.product;
 
-import br.com.fiap.baitersburger.application.core.usecase.product.DeleteProductUseCase;
-import br.com.fiap.baitersburger.application.ports.in.product.FindProductByIdInputPort;
-import br.com.fiap.baitersburger.application.ports.out.product.DeleteProductOutputPort;
+import br.com.fiap.baitersburger.core.application.usecase.product.DeleteProductUseCase;
+import br.com.fiap.baitersburger.core.application.ports.in.product.FindProductByIdInputPort;
+import br.com.fiap.baitersburger.core.domain.ports.out.product.DeleteProductOutputPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

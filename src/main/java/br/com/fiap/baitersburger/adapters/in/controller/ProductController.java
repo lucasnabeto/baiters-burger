@@ -1,11 +1,9 @@
 package br.com.fiap.baitersburger.adapters.in.controller;
 
-import br.com.fiap.baitersburger.adapters.in.controller.dto.ProductRequestDTO;
-import br.com.fiap.baitersburger.adapters.in.controller.dto.ProductResponseDTO;
+import br.com.fiap.baitersburger.adapters.in.controller.dto.product.ProductRequestDTO;
+import br.com.fiap.baitersburger.adapters.in.controller.dto.product.ProductResponseDTO;
 import br.com.fiap.baitersburger.adapters.in.controller.mapper.ProductMapper;
-import br.com.fiap.baitersburger.application.core.domain.Customer;
-import br.com.fiap.baitersburger.application.core.domain.Product;
-import br.com.fiap.baitersburger.application.ports.in.product.*;
+import br.com.fiap.baitersburger.core.application.ports.in.product.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
