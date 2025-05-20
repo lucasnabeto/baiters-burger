@@ -1,6 +1,5 @@
 package br.com.fiap.baitersburger.adapters.in.controller.dto.order;
 
-import br.com.fiap.baitersburger.core.domain.model.Product;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
@@ -10,5 +9,13 @@ import java.util.List;
 public class OrderRequestDTO {
 
     @NotEmpty
-    private List<Product> products;
+    private List<String> productsIds;
+
+    public List<String> getProductsIds() {
+        return productsIds;
+    }
+
+    public void setProductsIds(List<String> productsIds) {
+        this.productsIds = productsIds;
+    }
 }

@@ -15,19 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/orders")
 public class OrderController {
-    private final OrderMapper orderMapper;
 
     private final InsertOrderInputPort insertOrderInputPort;
 
-    public OrderController(OrderMapper orderMapper, InsertOrderInputPort insertOrderInputPort) {
-        this.orderMapper = orderMapper;
+    public OrderController(InsertOrderInputPort insertOrderInputPort) {
         this.insertOrderInputPort = insertOrderInputPort;
     }
 
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody OrderRequestDTO orderRequestDTO){
-        var order = orderMapper.toOrder(orderRequestDTO);
-        insertOrderInputPort.insert(order);
+        insertOrderInputPort.insert(orderRequestDTO.getProductsIds());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
