@@ -1,6 +1,6 @@
 package br.com.fiap.baitersburger.adapters.out.mongodb.repository.entity;
 
-import br.com.fiap.baitersburger.core.domain.model.Category;
+import br.com.fiap.baitersburger.core.domain.enums.Category;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

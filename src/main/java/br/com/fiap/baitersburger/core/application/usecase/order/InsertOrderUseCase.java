@@ -1,7 +1,7 @@
 package br.com.fiap.baitersburger.core.application.usecase.order;
 
 import br.com.fiap.baitersburger.core.domain.model.Order;
-import br.com.fiap.baitersburger.core.domain.model.OrderStatus;
+import br.com.fiap.baitersburger.core.domain.enums.OrderStatus;
 import br.com.fiap.baitersburger.core.application.ports.in.order.InsertOrderInputPort;
 import br.com.fiap.baitersburger.core.domain.model.Product;
 import br.com.fiap.baitersburger.core.domain.ports.out.order.InsertOrderOutputPort;

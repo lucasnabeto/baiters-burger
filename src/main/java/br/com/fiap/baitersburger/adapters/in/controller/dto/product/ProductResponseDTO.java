@@ -1,6 +1,6 @@
 package br.com.fiap.baitersburger.adapters.in.controller.dto.product;
 
-import br.com.fiap.baitersburger.core.domain.model.Category;
+import br.com.fiap.baitersburger.core.domain.enums.Category;
 import lombok.Data;
 
 import java.math.BigDecimal;

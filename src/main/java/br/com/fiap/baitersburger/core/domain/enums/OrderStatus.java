@@ -1,4 +1,4 @@
-package br.com.fiap.baitersburger.core.domain.model;
+package br.com.fiap.baitersburger.core.domain.enums;
 
 public enum OrderStatus {
     RECEIVED,

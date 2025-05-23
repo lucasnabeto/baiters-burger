@@ -1,5 +1,7 @@
 package br.com.fiap.baitersburger.core.domain.model;
 
+import br.com.fiap.baitersburger.core.domain.enums.Category;
+
 import java.math.BigDecimal;
 import java.util.List;
 
