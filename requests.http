@@ -1,0 +1,29 @@
+GET http://localhost:8080/api/v1/customers/12345678900
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/api/v1/customers
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "teste@teste.com",
+  "cpf": "12345678900"
+}
+
+###
+
+POST http://localhost:8080/api/v1/products
+Content-Type: application/json
+
+{
+  "productName": "Product Name 4",
+  "category": "DRINKS",
+  "price": 100.00,
+  "description": "Product Description",
+  "imagesUrls": [
+    "http://example.com/image1.jpg",
+    "http://example.com/image2.jpg"
+  ]
+}
