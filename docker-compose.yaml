@@ -7,6 +7,8 @@ services:
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: baitersburger
+        networks:
+            - baitersburger-network
 
     mongo-express:
         image: mongo-express
@@ -18,3 +20,21 @@ services:
             ME_CONFIG_MONGODB_ADMINPASSWORD: baitersburger
             ME_CONFIG_MONGODB_URL: mongodb://root:baitersburger@mongo:27017/
             ME_CONFIG_BASICAUTH: false
+        networks:
+            - baitersburger-network
+
+    baitersburger-app:
+        build:
+            context: . # caminho onde está o Dockerfile da app
+            dockerfile: Dockerfile
+        image: baitersburger-app:v1
+        ports:
+            - 8080:8080
+        depends_on:
+            - mongo
+        networks:
+            - baitersburger-network
+
+networks:
+    baitersburger-network:
+        driver: bridge
