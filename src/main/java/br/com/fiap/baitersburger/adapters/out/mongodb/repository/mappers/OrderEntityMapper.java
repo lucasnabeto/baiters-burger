@@ -4,7 +4,7 @@ import br.com.fiap.baitersburger.adapters.out.mongodb.repository.entity.OrderEnt
 import br.com.fiap.baitersburger.core.domain.model.Order;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {CustomerEntityMapper.class, ProductEntityMapper.class })
 public interface OrderEntityMapper {
     OrderEntity toOrderEntity(Order order);
 

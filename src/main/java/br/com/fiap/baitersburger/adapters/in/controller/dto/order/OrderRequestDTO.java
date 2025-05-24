@@ -11,8 +11,14 @@ public class OrderRequestDTO {
     @NotEmpty
     private List<String> productsIds;
 
+    private String customerCpf;
+
     public List<String> getProductsIds() {
         return productsIds;
+    }
+
+    public String getCustomerCpf() {
+        return customerCpf;
     }
 
     public void setProductsIds(List<String> productsIds) {

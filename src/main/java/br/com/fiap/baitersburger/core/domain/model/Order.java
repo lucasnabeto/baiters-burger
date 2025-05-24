@@ -12,6 +12,7 @@ public class Order {
     private BigDecimal totalPrice;
     private LocalDateTime createdAt;
     private OrderStatus status;
+    private Customer customer;
 
     public String getId() {
         return id;
@@ -55,5 +56,13 @@ public class Order {
 
     public void calculateTotalPrice(){
         this.totalPrice = products.stream().map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

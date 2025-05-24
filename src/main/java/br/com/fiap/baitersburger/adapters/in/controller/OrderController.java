@@ -24,7 +24,10 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody OrderRequestDTO orderRequestDTO){
-        insertOrderInputPort.insert(orderRequestDTO.getProductsIds());
+        insertOrderInputPort.insert(
+                orderRequestDTO.getProductsIds(),
+                orderRequestDTO.getCustomerCpf()
+        );
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
