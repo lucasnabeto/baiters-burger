@@ -14,14 +14,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
-    @Autowired
-    private CustomerMapper customerMapper;
+    private final CustomerMapper customerMapper;
 
-    @Autowired
-    private InsertCustomerInputPort insertCustomerInputPort;
+    private final InsertCustomerInputPort insertCustomerInputPort;
 
-    @Autowired
-    FindCustomerByCpfInputPort findCustomerByCpfInputPort;
+    private final FindCustomerByCpfInputPort findCustomerByCpfInputPort;
+
+    public CustomerController(CustomerMapper customerMapper, InsertCustomerInputPort insertCustomerInputPort, FindCustomerByCpfInputPort findCustomerByCpfInputPort) {
+        this.customerMapper = customerMapper;
+        this.insertCustomerInputPort = insertCustomerInputPort;
+        this.findCustomerByCpfInputPort = findCustomerByCpfInputPort;
+    }
 
     @GetMapping("/{cpf}")
     public ResponseEntity<CustomerResponseDTO> find(@PathVariable final String cpf) {

@@ -54,10 +54,6 @@ public class Order {
         this.status = status;
     }
 
-    public void calculateTotalPrice(){
-        this.totalPrice = products.stream().map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -65,4 +61,9 @@ public class Order {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+    public void calculateTotalPrice(){
+        this.totalPrice = products.stream().map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
 }

@@ -42,7 +42,10 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<List<OrderResponseDTO>> findByStatus(@RequestParam OrderStatus status) {
-        var order = findOrderByStatusInputPort.findByStatus(status).stream().map((orderMapper::toOrderResponseDTO)).toList();
+        var order = findOrderByStatusInputPort.findByStatus(status)
+                .stream()
+                .map((orderMapper::toOrderResponseDTO))
+                .toList();
         return ResponseEntity.ok(order);
     }
 }

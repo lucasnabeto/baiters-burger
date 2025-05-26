@@ -1,4 +1,4 @@
-package br.com.fiap.baitersburger.config.customer;
+package br.com.fiap.baitersburger.infrastructure.config.customer;
 
 import br.com.fiap.baitersburger.core.application.usecase.customer.InsertCustomerUseCase;
 import br.com.fiap.baitersburger.core.domain.ports.out.customer.InsertCustomerOutputPort;
