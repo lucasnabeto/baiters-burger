@@ -1,5 +1,6 @@
 package br.com.fiap.baitersburger.adapters.in.controller.exceptions;
 
+import br.com.fiap.baitersburger.core.exceptions.CustomerAlreadyExistsException;
 import br.com.fiap.baitersburger.core.exceptions.NotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
 
+    @ExceptionHandler(CustomerAlreadyExistsException.class)
+    public ResponseEntity<Map<String, Object>> handleNotFound(CustomerAlreadyExistsException ex) {
+
+        Map<String, Object> body = fillBody(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
+
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -42,6 +51,9 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
+
+
+
 
     private static Map<String, Object> fillBody(Object message, int status) {
         Map<String, Object> body = new HashMap<>();

@@ -3,6 +3,7 @@ package br.com.fiap.baitersburger.infrastructure.config.customer;
 import br.com.fiap.baitersburger.core.application.usecase.customer.FindCustomerByCpfUseCase;
 import br.com.fiap.baitersburger.core.application.usecase.customer.InsertCustomerUseCase;
 import br.com.fiap.baitersburger.core.domain.ports.out.customer.FindCustomerByCpfOutputPort;
+import br.com.fiap.baitersburger.core.domain.ports.out.customer.FindCustomerByEmailOutputPort;
 import br.com.fiap.baitersburger.core.domain.ports.out.customer.InsertCustomerOutputPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +14,9 @@ public class InsertCostumerConfig {
     @Bean
     public InsertCustomerUseCase insertCustomerUseCase(
             InsertCustomerOutputPort insertCustomerOutputPort,
-            FindCustomerByCpfOutputPort findCustomerByCpfOutputPort
+            FindCustomerByCpfOutputPort findCustomerByCpfOutputPort,
+            FindCustomerByEmailOutputPort findCustomerByEmailOutputPort
     ) {
-        return new InsertCustomerUseCase(insertCustomerOutputPort, findCustomerByCpfOutputPort);
+        return new InsertCustomerUseCase(insertCustomerOutputPort, findCustomerByCpfOutputPort, findCustomerByEmailOutputPort);
     }
 }

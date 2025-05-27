@@ -4,13 +4,14 @@ import br.com.fiap.baitersburger.adapters.out.mongodb.repository.CustomerReposit
 import br.com.fiap.baitersburger.adapters.out.mongodb.repository.mappers.CustomerEntityMapper;
 import br.com.fiap.baitersburger.core.domain.model.Customer;
 import br.com.fiap.baitersburger.core.domain.ports.out.customer.FindCustomerByCpfOutputPort;
+import br.com.fiap.baitersburger.core.domain.ports.out.customer.FindCustomerByEmailOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
-public class FindCustomerByCpfAdapter implements FindCustomerByCpfOutputPort {
+public class FindCustomerByCpfAdapter implements FindCustomerByCpfOutputPort, FindCustomerByEmailOutputPort {
 
     private final CustomerRepository customerRepository;
 
@@ -24,6 +25,12 @@ public class FindCustomerByCpfAdapter implements FindCustomerByCpfOutputPort {
     @Override
     public Optional<Customer> find(String cpf) {
         var customerEntity = customerRepository.findByCpf(cpf);
+        return customerEntity.map(customerEntityMapper::toCustomer);
+    }
+
+    @Override
+    public Optional<Customer> findByEmail(String email) {
+        var customerEntity = customerRepository.findByEmail(email);
         return customerEntity.map(customerEntityMapper::toCustomer);
     }
 }
