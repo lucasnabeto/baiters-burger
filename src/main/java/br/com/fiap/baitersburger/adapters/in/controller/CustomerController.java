@@ -37,6 +37,6 @@ public class CustomerController {
     public ResponseEntity<Customer> insert(@Valid @RequestBody CustomerRequestDTO customerRequestDTO) {
         var customer = customerMapper.toCustomer(customerRequestDTO);
         insertCustomerInputPort.insert(customer);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(201).build();
     }
 }
