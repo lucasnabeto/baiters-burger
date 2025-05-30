@@ -52,7 +52,7 @@ public class OrderController {
     }
 
     @PatchMapping("/{orderId}")
-    public ResponseEntity<Void> updateOrderStatus(@PathVariable String orderId, @RequestParam OrderStatus status) {
+    public ResponseEntity<Void> updateOrderStatus(@PathVariable String orderId, @RequestBody OrderStatus status) {
         updateOrderStatusInputPort.updateOrderStatus(orderId, status);
         return ResponseEntity.noContent().build();
     }
