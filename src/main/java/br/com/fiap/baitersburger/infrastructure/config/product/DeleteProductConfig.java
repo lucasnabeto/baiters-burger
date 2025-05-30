@@ -1,4 +1,4 @@
-package br.com.fiap.baitersburger.config.product;
+package br.com.fiap.baitersburger.infrastructure.config.product;
 
 import br.com.fiap.baitersburger.core.application.usecase.product.DeleteProductUseCase;
 import br.com.fiap.baitersburger.core.application.ports.in.product.FindProductByIdInputPort;

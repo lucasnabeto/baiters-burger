@@ -11,7 +11,6 @@ import java.util.List;
 @Component
 public class FindProductByCategoryAdapter implements FindProductByCategoryOutputPort {
     private final ProductRepository productRepository;
-
     private final ProductMapper productMapper;
 
     public FindProductByCategoryAdapter(ProductRepository productRepository, ProductMapper productMapper){

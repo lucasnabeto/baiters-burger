@@ -7,7 +7,6 @@ import br.com.fiap.baitersburger.core.domain.ports.out.product.UpdateProductOutp
 
 public class UpdateProductUseCase implements UpdateProductInputPort {
     private final UpdateProductOutputPort updateProductOutputPort;
-
     private final FindProductByIdInputPort findProductByIdInputPort;
 
     public UpdateProductUseCase(UpdateProductOutputPort updateProductOutputPort, FindProductByIdInputPort findProductByIdInputPort){

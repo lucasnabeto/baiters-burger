@@ -8,7 +8,6 @@ import br.com.fiap.baitersburger.core.domain.ports.out.order.FindOrderByStatusOu
 import java.util.List;
 
 public class FindOrderByStatusUseCase implements FindOrderByStatusInputPort {
-
     private final FindOrderByStatusOutputPort findOrderByStatusOutputPort;
 
     public FindOrderByStatusUseCase(FindOrderByStatusOutputPort findOrderByStatusOutputPort) {

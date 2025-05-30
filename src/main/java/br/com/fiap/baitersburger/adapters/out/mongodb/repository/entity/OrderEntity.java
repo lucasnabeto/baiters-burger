@@ -1,8 +1,6 @@
 package br.com.fiap.baitersburger.adapters.out.mongodb.repository.entity;
 
 import br.com.fiap.baitersburger.core.domain.enums.OrderStatus;
-import br.com.fiap.baitersburger.core.domain.model.Customer;
-import br.com.fiap.baitersburger.core.domain.model.Product;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,9 +14,14 @@ import java.util.List;
 public class OrderEntity {
     @Id
     private String id;
+
     private List<ProductEntity> products;
+
     private BigDecimal totalPrice;
+
     private LocalDateTime createdAt;
+
     private OrderStatus status;
+
     private CustomerEntity customer;
 }

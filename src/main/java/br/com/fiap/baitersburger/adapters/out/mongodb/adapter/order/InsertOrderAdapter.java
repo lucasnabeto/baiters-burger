@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class InsertOrderAdapter implements InsertOrderOutputPort {
     private final OrderRepository orderRepository;
-
     private final OrderEntityMapper orderEntityMapper;
 
     public InsertOrderAdapter(OrderRepository orderRepository, OrderEntityMapper orderEntityMapper) {

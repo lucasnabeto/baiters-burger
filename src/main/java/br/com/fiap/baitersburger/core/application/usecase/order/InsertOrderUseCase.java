@@ -7,16 +7,15 @@ import br.com.fiap.baitersburger.core.domain.model.Product;
 import br.com.fiap.baitersburger.core.domain.ports.out.customer.FindCustomerByCpfOutputPort;
 import br.com.fiap.baitersburger.core.domain.ports.out.order.InsertOrderOutputPort;
 import br.com.fiap.baitersburger.core.domain.ports.out.product.FindProductByIdOutputPort;
-import br.com.fiap.baitersburger.core.exceptions.CustomerNotFoundException;
+import br.com.fiap.baitersburger.core.exceptions.ExceptionMessages;
+import br.com.fiap.baitersburger.core.exceptions.NotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class InsertOrderUseCase implements InsertOrderInputPort {
     private final InsertOrderOutputPort insertOrderOutputPort;
-
     private final FindProductByIdOutputPort findProductByIdOutputPort;
-
     private final FindCustomerByCpfOutputPort findCustomerByCpfOutputPort;
 
     public InsertOrderUseCase(InsertOrderOutputPort insertOrderOutputPort,
@@ -33,13 +32,14 @@ public class InsertOrderUseCase implements InsertOrderInputPort {
         List<Product> products = productsIds.stream()
                 .map(id -> findProductByIdOutputPort
                         .findById(id)
-                        .orElseThrow(() -> new RuntimeException("Product not found")))
+                        .orElseThrow(() -> new NotFoundException(ExceptionMessages.PRODUCT_NOT_FOUND)))
                 .toList();
 
         var order = new Order();
 
         if (customerCpf != null) {
-            var customer = findCustomerByCpfOutputPort.find(customerCpf).orElseThrow(CustomerNotFoundException::new);
+            var customer = findCustomerByCpfOutputPort.find(customerCpf)
+                    .orElseThrow(() -> new NotFoundException(ExceptionMessages.CUSTOMER_NOT_FOUND));
             order.setCustomer(customer);
         }
 

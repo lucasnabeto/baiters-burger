@@ -6,7 +6,6 @@ import br.com.fiap.baitersburger.core.domain.ports.out.product.DeleteProductOutp
 
 public class DeleteProductUseCase implements DeleteProductInputPort {
     private final DeleteProductOutputPort deleteProductOutputPort;
-
     private final FindProductByIdInputPort findProductByIdInputPort;
 
     public DeleteProductUseCase(DeleteProductOutputPort deleteProductOutputPort, FindProductByIdInputPort findProductByIdInputPort){
