@@ -2,6 +2,7 @@ package br.com.fiap.baitersburger.adapters.in.controller;
 
 import br.com.fiap.baitersburger.adapters.in.controller.dto.order.OrderRequestDTO;
 import br.com.fiap.baitersburger.adapters.in.controller.dto.order.OrderResponseDTO;
+import br.com.fiap.baitersburger.adapters.in.controller.dto.order.UpdateOrderStatusDTO;
 import br.com.fiap.baitersburger.adapters.in.controller.mapper.OrderMapper;
 import br.com.fiap.baitersburger.core.application.ports.in.order.FindOrderByStatusInputPort;
 import br.com.fiap.baitersburger.core.application.ports.in.order.InsertOrderInputPort;
@@ -52,8 +53,9 @@ public class OrderController {
     }
 
     @PatchMapping("/{orderId}")
-    public ResponseEntity<Void> updateOrderStatus(@PathVariable String orderId, @RequestBody OrderStatus status) {
-        updateOrderStatusInputPort.updateOrderStatus(orderId, status);
+    public ResponseEntity<Void> updateOrderStatus(@PathVariable String orderId, @RequestBody UpdateOrderStatusDTO updateOrderStatusDTO) {
+        OrderStatus orderStatus = OrderStatus.fromValue(updateOrderStatusDTO.getStatus());
+        updateOrderStatusInputPort.updateOrderStatus(orderId, orderStatus);
         return ResponseEntity.noContent().build();
     }
 }
