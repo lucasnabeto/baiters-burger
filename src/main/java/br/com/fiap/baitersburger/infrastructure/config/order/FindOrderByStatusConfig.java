@@ -7,11 +7,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FindOrderByStatusConfig {
-
     @Bean
     public FindOrderByStatusUseCase findOrderByStatusUseCase(FindOrderByStatusOutputPort findOrderByStatusOutputPort) {
         return new FindOrderByStatusUseCase(findOrderByStatusOutputPort);
     }
-
-
 }

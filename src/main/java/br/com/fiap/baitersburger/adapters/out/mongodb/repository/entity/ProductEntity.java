@@ -13,9 +13,14 @@ import java.util.List;
 public class ProductEntity {
     @Id
     private String id;
+
     private String productName;
+
     private BigDecimal price;
+
     private Category category;
+
     private List<String> imagesUrls;
+
     private String description;
 }

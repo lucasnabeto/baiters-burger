@@ -9,7 +9,6 @@ import org.springframework.boot.context.properties.bind.Name;
 
 @Data
 public class CustomerRequestDTO {
-
     @NotBlank
     @ValidCPF(message = "CPF must be valid and contain 11 digits.")
     private String cpf;

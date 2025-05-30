@@ -34,6 +34,7 @@ Este projeto é uma aplicação Java com Spring Boot, MongoDB e Mongo Express, o
 
 3. Acesse a aplicação:
     - API: [http://localhost:8080](http://localhost:8080)
+    - Swagger: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
     - Mongo Express: [http://localhost:8081](http://localhost:8081)
 
 ### Parar os containers
@@ -85,6 +86,7 @@ This project is a Java application using Spring Boot, MongoDB, and Mongo Express
 
 3. Access the application:
     - API: [http://localhost:8080](http://localhost:8080)
+    - Swagger: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
     - Mongo Express: [http://localhost:8081](http://localhost:8081)
 
 ### Stop the containers

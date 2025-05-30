@@ -15,9 +15,7 @@ import java.util.List;
 
 public class InsertOrderUseCase implements InsertOrderInputPort {
     private final InsertOrderOutputPort insertOrderOutputPort;
-
     private final FindProductByIdOutputPort findProductByIdOutputPort;
-
     private final FindCustomerByCpfOutputPort findCustomerByCpfOutputPort;
 
     public InsertOrderUseCase(InsertOrderOutputPort insertOrderOutputPort,

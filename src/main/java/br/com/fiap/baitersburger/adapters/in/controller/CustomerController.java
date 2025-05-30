@@ -6,6 +6,8 @@ import br.com.fiap.baitersburger.adapters.in.controller.mapper.CustomerMapper;
 import br.com.fiap.baitersburger.core.domain.model.Customer;
 import br.com.fiap.baitersburger.core.application.ports.in.customer.FindCustomerByCpfInputPort;
 import br.com.fiap.baitersburger.core.application.ports.in.customer.InsertCustomerInputPort;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
     private final CustomerMapper customerMapper;
-
     private final InsertCustomerInputPort insertCustomerInputPort;
-
     private final FindCustomerByCpfInputPort findCustomerByCpfInputPort;
 
     public CustomerController(CustomerMapper customerMapper, InsertCustomerInputPort insertCustomerInputPort, FindCustomerByCpfInputPort findCustomerByCpfInputPort) {

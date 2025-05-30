@@ -12,9 +12,7 @@ import java.util.Optional;
 
 @Component
 public class FindCustomerByCpfAdapter implements FindCustomerByCpfOutputPort, FindCustomerByEmailOutputPort {
-
     private final CustomerRepository customerRepository;
-
     private final CustomerEntityMapper customerEntityMapper;
 
     public FindCustomerByCpfAdapter(CustomerRepository customerRepository, CustomerEntityMapper customerEntityMapper) {

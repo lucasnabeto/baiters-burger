@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FindCustomerByCpfConfig {
-
     @Bean
     public FindCustomerByCpfUseCase findCustomerByCpfUseCase(FindCustomerByCpfOutputPort findCustomerByCpfOutputPort) {
         return new FindCustomerByCpfUseCase(findCustomerByCpfOutputPort);

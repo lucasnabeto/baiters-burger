@@ -8,7 +8,6 @@ import br.com.fiap.baitersburger.core.domain.ports.out.customer.InsertCustomerOu
 import br.com.fiap.baitersburger.core.exceptions.CustomerAlreadyExistsException;
 
 public class InsertCustomerUseCase implements InsertCustomerInputPort {
-
     private final InsertCustomerOutputPort insertCustomerOutputPort;
     private final FindCustomerByCpfOutputPort findCustomerByCpfOutputPort;
     private final FindCustomerByEmailOutputPort findCustomerByEmailOutputPort;
@@ -20,7 +19,6 @@ public class InsertCustomerUseCase implements InsertCustomerInputPort {
         this.findCustomerByCpfOutputPort = findCustomerByCpfOutputPort;
         this.findCustomerByEmailOutputPort = findCustomerByEmailOutputPort;
     }
-
 
     @Override
     public void insert(Customer newCustomer) {

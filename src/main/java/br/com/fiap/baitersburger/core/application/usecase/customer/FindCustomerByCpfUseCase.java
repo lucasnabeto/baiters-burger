@@ -7,7 +7,6 @@ import br.com.fiap.baitersburger.core.application.ports.in.customer.FindCustomer
 import br.com.fiap.baitersburger.core.domain.ports.out.customer.FindCustomerByCpfOutputPort;
 
 public class FindCustomerByCpfUseCase implements FindCustomerByCpfInputPort {
-
     private final FindCustomerByCpfOutputPort findCustomerByCpfOutputPort;
 
     public FindCustomerByCpfUseCase(FindCustomerByCpfOutputPort findCustomerByCpfOutputPort) {
