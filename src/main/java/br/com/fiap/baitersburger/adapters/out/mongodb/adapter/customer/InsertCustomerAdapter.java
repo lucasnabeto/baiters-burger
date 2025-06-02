@@ -9,9 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class InsertCustomerAdapter implements InsertCustomerOutputPort {
-
     private final CustomerRepository customerRepository;
-
     private final CustomerEntityMapper customerEntityMapper;
 
     public InsertCustomerAdapter(CustomerRepository customerRepository, CustomerEntityMapper customerEntityMapper) {

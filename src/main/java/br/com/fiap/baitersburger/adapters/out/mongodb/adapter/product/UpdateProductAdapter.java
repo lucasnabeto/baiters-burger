@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class UpdateProductAdapter implements UpdateProductOutputPort {
     private final ProductRepository productRepository;
-
     private final ProductEntityMapper productEntityMapper;
 
     public UpdateProductAdapter(ProductRepository productRepository, ProductEntityMapper productEntityMapper) {

@@ -11,7 +11,6 @@ import java.util.Optional;
 @Component
 public class FindProductByIdAdapter implements FindProductByIdOutputPort {
     private final ProductRepository productRepository;
-
     private final ProductEntityMapper productEntityMapper;
 
     public FindProductByIdAdapter(ProductRepository productRepository, ProductEntityMapper productEntityMapper) {

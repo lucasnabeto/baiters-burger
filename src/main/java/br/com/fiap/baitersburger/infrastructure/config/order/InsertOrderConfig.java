@@ -1,4 +1,4 @@
-package br.com.fiap.baitersburger.config.order;
+package br.com.fiap.baitersburger.infrastructure.config.order;
 
 import br.com.fiap.baitersburger.core.application.usecase.order.InsertOrderUseCase;
 import br.com.fiap.baitersburger.core.domain.ports.out.customer.FindCustomerByCpfOutputPort;
