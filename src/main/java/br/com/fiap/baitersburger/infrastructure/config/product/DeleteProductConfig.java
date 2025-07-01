@@ -1,15 +1,16 @@
 package br.com.fiap.baitersburger.infrastructure.config.product;
 
-import br.com.fiap.baitersburger.core.application.usecase.product.DeleteProductUseCase;
-import br.com.fiap.baitersburger.core.application.ports.in.product.FindProductByIdInputPort;
-import br.com.fiap.baitersburger.core.domain.ports.out.product.DeleteProductOutputPort;
+import br.com.fiap.baitersburger.application.usecase.product.impl.DeleteProductUseCaseImpl;
+import br.com.fiap.baitersburger.domain.port.repository.ProductRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DeleteProductConfig {
     @Bean
-    public DeleteProductUseCase deleteProductUseCase(DeleteProductOutputPort deleteProductOutputPort, FindProductByIdInputPort findProductByIdInputPort){
-        return new DeleteProductUseCase(deleteProductOutputPort, findProductByIdInputPort);
+    public DeleteProductUseCaseImpl deleteProductUseCase(
+            ProductRepository productRepository
+    ){
+        return new DeleteProductUseCaseImpl(productRepository);
     }
 }

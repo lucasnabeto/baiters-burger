@@ -1,20 +1,16 @@
 package br.com.fiap.baitersburger.infrastructure.config.customer;
 
-import br.com.fiap.baitersburger.core.application.usecase.customer.InsertCustomerUseCase;
-import br.com.fiap.baitersburger.core.domain.ports.out.customer.FindCustomerByCpfOutputPort;
-import br.com.fiap.baitersburger.core.domain.ports.out.customer.FindCustomerByEmailOutputPort;
-import br.com.fiap.baitersburger.core.domain.ports.out.customer.InsertCustomerOutputPort;
+import br.com.fiap.baitersburger.application.usecase.customer.impl.InsertCustomerUseCaseImpl;
+import br.com.fiap.baitersburger.domain.port.repository.CustomerRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class InsertCostumerConfig {
     @Bean
-    public InsertCustomerUseCase insertCustomerUseCase(
-            InsertCustomerOutputPort insertCustomerOutputPort,
-            FindCustomerByCpfOutputPort findCustomerByCpfOutputPort,
-            FindCustomerByEmailOutputPort findCustomerByEmailOutputPort
+    public InsertCustomerUseCaseImpl insertCustomerUseCase(
+            CustomerRepository customerRepository
     ) {
-        return new InsertCustomerUseCase(insertCustomerOutputPort, findCustomerByCpfOutputPort, findCustomerByEmailOutputPort);
+        return new InsertCustomerUseCaseImpl(customerRepository);
     }
 }
