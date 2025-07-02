@@ -1,7 +1,7 @@
 package br.com.fiap.baitersburger.infrastructure.config.order;
 
-import br.com.fiap.baitersburger.application.usecase.order.impl.FindOrderByIdUseCaseImpl;
-import br.com.fiap.baitersburger.domain.port.repository.OrderRepository;
+import br.com.fiap.baitersburger.application.usecase.order.FindOrderByIdUseCaseImpl;
+import br.com.fiap.baitersburger.domain.port.out.repository.OrderRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -1,9 +1,9 @@
 package br.com.fiap.baitersburger.infrastructure.config.order;
 
-import br.com.fiap.baitersburger.application.usecase.order.impl.InsertOrderUseCaseImpl;
-import br.com.fiap.baitersburger.domain.port.repository.CustomerRepository;
-import br.com.fiap.baitersburger.domain.port.repository.OrderRepository;
-import br.com.fiap.baitersburger.domain.port.repository.ProductRepository;
+import br.com.fiap.baitersburger.application.usecase.order.InsertOrderUseCaseImpl;
+import br.com.fiap.baitersburger.domain.port.out.repository.CustomerRepository;
+import br.com.fiap.baitersburger.domain.port.out.repository.OrderRepository;
+import br.com.fiap.baitersburger.domain.port.out.repository.ProductRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

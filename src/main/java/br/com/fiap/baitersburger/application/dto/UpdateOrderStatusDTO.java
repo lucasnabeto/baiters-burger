@@ -1,8 +1,5 @@
 package br.com.fiap.baitersburger.application.dto;
-import lombok.Data;
 
-@Data
-public class UpdateOrderStatusDTO {
+public record UpdateOrderStatusDTO(String status) {
 
-    private String status;
 }
