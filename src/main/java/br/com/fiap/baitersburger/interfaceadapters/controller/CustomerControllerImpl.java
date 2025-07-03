@@ -21,19 +21,21 @@ public class CustomerControllerImpl implements CustomerController {
     private final CustomerMapper customerMapper;
     private final CustomerDataSource dataSource;
     private final CustomerGateway gateway;
+    private final FindCustomerByCpfUseCase findCustomerByCpfUseCase;
+    private final InsertCustomerUseCaseImpl insertCustomerUseCaseImpl;
 
     public CustomerControllerImpl(CustomerMapper customerMapper,CustomerDataSource dataSource) {
         this.dataSource = dataSource;
         this.customerMapper = customerMapper;
         this.gateway = new CustomerGatewayImpl(this.dataSource);
-
+        this.findCustomerByCpfUseCase = new FindCustomerByCpfUseCaseImpl(this.gateway);
+        this.insertCustomerUseCaseImpl = new InsertCustomerUseCaseImpl(this.gateway);
 
 
     }
 
     @Override
     public CustomerResponseDTO find(String cpf) {
-        var findCustomerByCpfUseCase = new FindCustomerByCpfUseCaseImpl(this.gateway);
         var customer = findCustomerByCpfUseCase.find(cpf);
 
         return customerMapper.toCustomerResponseDTO(customer);
@@ -44,7 +46,6 @@ public class CustomerControllerImpl implements CustomerController {
     public void insert(CustomerRequestDTO dto) {
 
         var customer = customerMapper.toCustomer(dto);
-
-        new InsertCustomerUseCaseImpl(this.dataSource).insert(customer);
+        this.insertCustomerUseCaseImpl.insert(customer);
     }
 }
