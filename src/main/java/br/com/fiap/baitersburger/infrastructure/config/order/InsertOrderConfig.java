@@ -1,9 +1,9 @@
 package br.com.fiap.baitersburger.infrastructure.config.order;
 
 import br.com.fiap.baitersburger.application.usecase.order.InsertOrderUseCaseImpl;
-import br.com.fiap.baitersburger.domain.port.out.repository.CustomerRepository;
-import br.com.fiap.baitersburger.domain.port.out.repository.OrderRepository;
-import br.com.fiap.baitersburger.domain.port.out.repository.ProductRepository;
+import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
+import br.com.fiap.baitersburger.domain.port.out.repository.OrderDataSource;
+import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 public class InsertOrderConfig {
     @Bean
     public InsertOrderUseCaseImpl insertOrderUseCase(
-            CustomerRepository customerRepository,
-            OrderRepository orderRepository,
-            ProductRepository productRepository
+            CustomerDataSource customerDataSource,
+            OrderDataSource orderDataSource,
+            ProductDataSource productDataSource
     ) {
-        return new InsertOrderUseCaseImpl(customerRepository, orderRepository, productRepository);
+        return new InsertOrderUseCaseImpl(customerDataSource, orderDataSource, productDataSource);
     }
 }

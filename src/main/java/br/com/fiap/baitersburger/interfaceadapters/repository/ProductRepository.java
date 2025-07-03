@@ -1,8 +1,8 @@
-package br.com.fiap.baitersburger.interfaceadapters.gateway;
+package br.com.fiap.baitersburger.interfaceadapters.repository;
 
 
 import br.com.fiap.baitersburger.domain.model.Product;
-import br.com.fiap.baitersburger.domain.port.out.repository.ProductRepository;
+import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
 import br.com.fiap.baitersburger.infrastructure.persistence.mapper.ProductEntityMapper;
 import br.com.fiap.baitersburger.infrastructure.persistence.repository.ProductMongoRepository;
 import org.springframework.stereotype.Component;
@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class ProductRepositoryAdapter implements ProductRepository { // <= Implementa a porta do domínio
+public class ProductRepository implements ProductDataSource { // <= Implementa a porta do domínio
 
     private final ProductMongoRepository productMongoRepository;
     private final ProductEntityMapper productEntityMapper;
 
-    public ProductRepositoryAdapter(ProductMongoRepository productMongoRepository, ProductEntityMapper productEntityMapper) {
+    public ProductRepository(ProductMongoRepository productMongoRepository, ProductEntityMapper productEntityMapper) {
         this.productMongoRepository = productMongoRepository;
         this.productEntityMapper = productEntityMapper;
     }

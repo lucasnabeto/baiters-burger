@@ -4,9 +4,9 @@ import br.com.fiap.baitersburger.domain.model.Order;
 import br.com.fiap.baitersburger.domain.enums.OrderStatus;
 import br.com.fiap.baitersburger.domain.port.in.usecase.order.InsertOrderUseCase;
 import br.com.fiap.baitersburger.domain.model.Product;
-import br.com.fiap.baitersburger.domain.port.out.repository.CustomerRepository;
-import br.com.fiap.baitersburger.domain.port.out.repository.OrderRepository;
-import br.com.fiap.baitersburger.domain.port.out.repository.ProductRepository;
+import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
+import br.com.fiap.baitersburger.domain.port.out.repository.OrderDataSource;
+import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
 import br.com.fiap.baitersburger.domain.exception.ExceptionMessages;
 import br.com.fiap.baitersburger.domain.exception.NotFoundException;
 
@@ -15,20 +15,20 @@ import java.util.List;
 
 public class InsertOrderUseCaseImpl implements InsertOrderUseCase {
 
-    private final CustomerRepository customerRepository;
-    private final OrderRepository orderRepository;
-    private final ProductRepository productRepository;
+    private final CustomerDataSource customerDataSource;
+    private final OrderDataSource orderDataSource;
+    private final ProductDataSource productDataSource;
 
-    public InsertOrderUseCaseImpl(CustomerRepository customerRepository, OrderRepository orderRepository, ProductRepository productRepository) {
-        this.customerRepository = customerRepository;
-        this.orderRepository = orderRepository;
-        this.productRepository = productRepository;
+    public InsertOrderUseCaseImpl(CustomerDataSource customerDataSource, OrderDataSource orderDataSource, ProductDataSource productDataSource) {
+        this.customerDataSource = customerDataSource;
+        this.orderDataSource = orderDataSource;
+        this.productDataSource = productDataSource;
     }
 
     @Override
     public void insert(List<String> productsIds, String customerCpf) {
         List<Product> products = productsIds.stream()
-                .map(id -> productRepository
+                .map(id -> productDataSource
                         .findById(id)
                         .orElseThrow(() -> new NotFoundException(ExceptionMessages.PRODUCT_NOT_FOUND)))
                 .toList();
@@ -36,7 +36,7 @@ public class InsertOrderUseCaseImpl implements InsertOrderUseCase {
         var order = new Order();
 
         if (customerCpf != null) {
-            var customer = customerRepository.findByCpf(customerCpf)
+            var customer = customerDataSource.findByCpf(customerCpf)
                     .orElseThrow(() -> new NotFoundException(ExceptionMessages.CUSTOMER_NOT_FOUND));
             order.setCustomer(customer);
         }
@@ -46,6 +46,6 @@ public class InsertOrderUseCaseImpl implements InsertOrderUseCase {
         order.setProducts(products);
         order.calculateTotalPrice();
 
-        orderRepository.insert(order);
+        orderDataSource.insert(order);
     }
 }

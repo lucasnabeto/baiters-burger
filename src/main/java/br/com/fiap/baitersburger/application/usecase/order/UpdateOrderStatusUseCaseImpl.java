@@ -4,21 +4,21 @@ import br.com.fiap.baitersburger.domain.port.in.usecase.order.UpdateOrderStatusU
 import br.com.fiap.baitersburger.domain.enums.OrderStatus;
 import br.com.fiap.baitersburger.domain.exception.ExceptionMessages;
 import br.com.fiap.baitersburger.domain.exception.NotFoundException;
-import br.com.fiap.baitersburger.domain.port.out.repository.OrderRepository;
+import br.com.fiap.baitersburger.domain.port.out.repository.OrderDataSource;
 
 public class UpdateOrderStatusUseCaseImpl implements UpdateOrderStatusUseCase {
-    private final OrderRepository orderRepository;
+    private final OrderDataSource orderDataSource;
 
-    public UpdateOrderStatusUseCaseImpl(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public UpdateOrderStatusUseCaseImpl(OrderDataSource orderDataSource) {
+        this.orderDataSource = orderDataSource;
     }
 
     @Override
     public void updateOrderStatus(String orderId, OrderStatus status) {
-        var order = orderRepository.findById(orderId)
+        var order = orderDataSource.findById(orderId)
                 .orElseThrow(() -> new NotFoundException(ExceptionMessages.ORDER_NOT_FOUND));
 
         order.setStatus(status);
-        orderRepository.updateStatus(order);
+        orderDataSource.updateStatus(order);
     }
 }

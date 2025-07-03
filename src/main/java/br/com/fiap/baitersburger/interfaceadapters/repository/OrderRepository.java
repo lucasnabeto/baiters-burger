@@ -1,8 +1,8 @@
-package br.com.fiap.baitersburger.interfaceadapters.gateway;
+package br.com.fiap.baitersburger.interfaceadapters.repository;
 
 import br.com.fiap.baitersburger.domain.enums.OrderStatus;
 import br.com.fiap.baitersburger.domain.model.Order;
-import br.com.fiap.baitersburger.domain.port.out.repository.OrderRepository;
+import br.com.fiap.baitersburger.domain.port.out.repository.OrderDataSource;
 import br.com.fiap.baitersburger.infrastructure.persistence.mapper.OrderEntityMapper;
 import br.com.fiap.baitersburger.infrastructure.persistence.repository.OrderMongoRepository;
 import org.springframework.stereotype.Component;
@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class OrderRepositoryAdapter implements OrderRepository {
+public class OrderRepository implements OrderDataSource {
 
     private final OrderMongoRepository orderMongoRepository;
     private final OrderEntityMapper orderEntityMapper;
 
-    public OrderRepositoryAdapter(OrderMongoRepository orderMongoRepository, OrderEntityMapper orderEntityMapper) {
+    public OrderRepository(OrderMongoRepository orderMongoRepository, OrderEntityMapper orderEntityMapper) {
         this.orderMongoRepository = orderMongoRepository;
         this.orderEntityMapper = orderEntityMapper;
     }

@@ -1,7 +1,7 @@
 package br.com.fiap.baitersburger.infrastructure.config.product;
 
 import br.com.fiap.baitersburger.application.usecase.product.InsertProductUseCaseImpl;
-import br.com.fiap.baitersburger.domain.port.out.repository.ProductRepository;
+import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class InsertProductConfig {
     @Bean
     public InsertProductUseCaseImpl insertProductUseCase(
-            ProductRepository productRepository
+            ProductDataSource productDataSource
     ) {
-        return new InsertProductUseCaseImpl(productRepository);
+        return new InsertProductUseCaseImpl(productDataSource);
     }
 }

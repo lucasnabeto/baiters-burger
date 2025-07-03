@@ -2,19 +2,19 @@ package br.com.fiap.baitersburger.application.usecase.product;
 
 import br.com.fiap.baitersburger.domain.model.Product;
 import br.com.fiap.baitersburger.domain.port.in.usecase.product.UpdateProductUseCase;
-import br.com.fiap.baitersburger.domain.port.out.repository.ProductRepository;
+import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
 
 public class UpdateProductUseCaseImpl implements UpdateProductUseCase {
 
-    private final ProductRepository productRepository;
+    private final ProductDataSource productDataSource;
 
-    public UpdateProductUseCaseImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public UpdateProductUseCaseImpl(ProductDataSource productDataSource) {
+        this.productDataSource = productDataSource;
     }
 
     @Override
     public void update(Product product) {
-        productRepository.findById(product.getId());
-        productRepository.update(product);
+        productDataSource.findById(product.getId());
+        productDataSource.update(product);
     }
 }

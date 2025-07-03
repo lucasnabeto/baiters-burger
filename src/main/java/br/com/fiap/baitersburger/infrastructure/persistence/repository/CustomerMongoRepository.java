@@ -9,4 +9,6 @@ public interface CustomerMongoRepository extends MongoRepository<CustomerEntity,
     Optional<CustomerEntity> findByCpf(String cpf);
 
     Optional<CustomerEntity> findByEmail(String email);
+
+
 }

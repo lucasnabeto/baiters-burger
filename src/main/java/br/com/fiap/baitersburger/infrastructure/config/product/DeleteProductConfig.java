@@ -1,7 +1,7 @@
 package br.com.fiap.baitersburger.infrastructure.config.product;
 
 import br.com.fiap.baitersburger.application.usecase.product.DeleteProductUseCaseImpl;
-import br.com.fiap.baitersburger.domain.port.out.repository.ProductRepository;
+import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class DeleteProductConfig {
     @Bean
     public DeleteProductUseCaseImpl deleteProductUseCase(
-            ProductRepository productRepository
+            ProductDataSource productDataSource
     ){
-        return new DeleteProductUseCaseImpl(productRepository);
+        return new DeleteProductUseCaseImpl(productDataSource);
     }
 }

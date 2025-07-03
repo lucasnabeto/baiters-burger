@@ -1,7 +1,7 @@
 package br.com.fiap.baitersburger.infrastructure.config.customer;
 
 import br.com.fiap.baitersburger.application.usecase.customer.InsertCustomerUseCaseImpl;
-import br.com.fiap.baitersburger.domain.port.out.repository.CustomerRepository;
+import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class InsertCostumerConfig {
     @Bean
     public InsertCustomerUseCaseImpl insertCustomerUseCase(
-            CustomerRepository customerRepository
+            CustomerDataSource customerDataSource
     ) {
-        return new InsertCustomerUseCaseImpl(customerRepository);
+        return new InsertCustomerUseCaseImpl(customerDataSource);
     }
 }

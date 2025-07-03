@@ -4,21 +4,21 @@ import br.com.fiap.baitersburger.domain.port.in.usecase.order.FindOrderByIdUseCa
 import br.com.fiap.baitersburger.domain.exception.ExceptionMessages;
 import br.com.fiap.baitersburger.domain.exception.NotFoundException;
 import br.com.fiap.baitersburger.domain.model.Order;
-import br.com.fiap.baitersburger.domain.port.out.repository.OrderRepository;
+import br.com.fiap.baitersburger.domain.port.out.repository.OrderDataSource;
 
 
 public class FindOrderByIdUseCaseImpl implements FindOrderByIdUseCase {
 
 
-    private final OrderRepository orderRepository;
+    private final OrderDataSource orderDataSource;
 
-    public FindOrderByIdUseCaseImpl(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public FindOrderByIdUseCaseImpl(OrderDataSource orderDataSource) {
+        this.orderDataSource = orderDataSource;
     }
 
     @Override
     public Order findOrderById(String orderId) {
-        return orderRepository.findById(orderId)
+        return orderDataSource.findById(orderId)
                 .orElseThrow(() -> new NotFoundException(ExceptionMessages.ORDER_NOT_FOUND));
     }
 }

@@ -4,7 +4,7 @@ import br.com.fiap.baitersburger.domain.model.Customer;
 
 import java.util.Optional;
 
-public interface CustomerRepository {
+public interface CustomerDataSource {
 
     void insert(Customer customer);
     Optional<Customer> findByCpf(String cpf);
