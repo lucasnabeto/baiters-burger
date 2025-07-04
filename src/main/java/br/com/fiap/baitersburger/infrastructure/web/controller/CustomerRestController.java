@@ -14,15 +14,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/customers")
-public class CustomerRestHandler {
+public class CustomerRestController {
 
     private final CustomerController customerController;
     private final CustomerMapper customerMapper;
     
-    public CustomerRestHandler(CustomerMapper customerMapper, CustomerDataSource dataSource ) {
+    public CustomerRestController(CustomerMapper customerMapper, CustomerDataSource dataSource) {
         this.customerMapper = customerMapper;
         this.customerController = new CustomerControllerImpl(this.customerMapper,dataSource);
-
     }
 
     @GetMapping("/{cpf}")

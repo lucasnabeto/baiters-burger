@@ -4,13 +4,14 @@ import br.com.fiap.baitersburger.domain.port.in.usecase.order.UpdateOrderStatusU
 import br.com.fiap.baitersburger.domain.enums.OrderStatus;
 import br.com.fiap.baitersburger.domain.exception.ExceptionMessages;
 import br.com.fiap.baitersburger.domain.exception.NotFoundException;
+import br.com.fiap.baitersburger.domain.port.out.gateway.OrderGateway;
 import br.com.fiap.baitersburger.domain.port.out.repository.OrderDataSource;
 
 public class UpdateOrderStatusUseCaseImpl implements UpdateOrderStatusUseCase {
-    private final OrderDataSource orderDataSource;
+    private final OrderGateway orderDataSource;
 
-    public UpdateOrderStatusUseCaseImpl(OrderDataSource orderDataSource) {
-        this.orderDataSource = orderDataSource;
+    public UpdateOrderStatusUseCaseImpl(OrderGateway orderGateway) {
+        this.orderDataSource = orderGateway;
     }
 
     @Override

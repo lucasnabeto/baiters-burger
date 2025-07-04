@@ -13,7 +13,6 @@ public class CustomerGatewayImpl implements CustomerGateway {
         this.dataSource = dataSource;
     }
 
-
     @Override
     public void insert(Customer customer) {
         this.dataSource.insert(customer);

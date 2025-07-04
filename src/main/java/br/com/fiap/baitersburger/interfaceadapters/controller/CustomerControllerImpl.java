@@ -4,14 +4,11 @@ import br.com.fiap.baitersburger.application.dto.request.CustomerRequestDTO;
 import br.com.fiap.baitersburger.application.dto.response.CustomerResponseDTO;
 import br.com.fiap.baitersburger.application.usecase.customer.FindCustomerByCpfUseCaseImpl;
 import br.com.fiap.baitersburger.application.usecase.customer.InsertCustomerUseCaseImpl;
-import br.com.fiap.baitersburger.domain.model.Customer;
 import br.com.fiap.baitersburger.domain.port.in.controller.CustomerController;
 import br.com.fiap.baitersburger.domain.port.in.usecase.customer.FindCustomerByCpfUseCase;
-import br.com.fiap.baitersburger.domain.port.in.usecase.customer.InsertCustomerUseCase;
 import br.com.fiap.baitersburger.domain.port.out.gateway.CustomerGateway;
 import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
 import br.com.fiap.baitersburger.infrastructure.web.mapper.CustomerMapper;
-import br.com.fiap.baitersburger.infrastructure.web.mapper.CustomerMapperImpl;
 import br.com.fiap.baitersburger.interfaceadapters.gateway.CustomerGatewayImpl;
 import org.springframework.stereotype.Component;
 
@@ -19,17 +16,15 @@ import org.springframework.stereotype.Component;
 public class CustomerControllerImpl implements CustomerController {
 
     private final CustomerMapper customerMapper;
-    private final CustomerDataSource dataSource;
-    private final CustomerGateway gateway;
     private final FindCustomerByCpfUseCase findCustomerByCpfUseCase;
     private final InsertCustomerUseCaseImpl insertCustomerUseCaseImpl;
 
-    public CustomerControllerImpl(CustomerMapper customerMapper,CustomerDataSource dataSource) {
-        this.dataSource = dataSource;
+    public CustomerControllerImpl(CustomerMapper customerMapper, CustomerDataSource dataSource) {
         this.customerMapper = customerMapper;
-        this.gateway = new CustomerGatewayImpl(this.dataSource);
-        this.findCustomerByCpfUseCase = new FindCustomerByCpfUseCaseImpl(this.gateway);
-        this.insertCustomerUseCaseImpl = new InsertCustomerUseCaseImpl(this.gateway);
+        CustomerGateway gateway = new CustomerGatewayImpl(dataSource);
+
+        this.findCustomerByCpfUseCase = new FindCustomerByCpfUseCaseImpl(gateway);
+        this.insertCustomerUseCaseImpl = new InsertCustomerUseCaseImpl(gateway);
 
 
     }
