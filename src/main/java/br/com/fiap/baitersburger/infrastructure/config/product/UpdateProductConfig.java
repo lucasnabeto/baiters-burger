@@ -1,8 +1,9 @@
 package br.com.fiap.baitersburger.infrastructure.config.product;
 
-import br.com.fiap.baitersburger.core.application.usecase.product.UpdateProductUseCase;
-import br.com.fiap.baitersburger.core.application.ports.in.product.FindProductByIdInputPort;
-import br.com.fiap.baitersburger.core.domain.ports.out.product.UpdateProductOutputPort;
+import br.com.fiap.baitersburger.application.usecase.product.UpdateProductUseCaseImpl;
+import br.com.fiap.baitersburger.domain.port.in.usecase.product.UpdateProductUseCase;
+import br.com.fiap.baitersburger.domain.port.out.gateway.ProductGateway;
+import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class UpdateProductConfig
 {
     @Bean
-    public UpdateProductUseCase updateProductUseCase(UpdateProductOutputPort updateProductOutputPort, FindProductByIdInputPort findProductByIdInputPort){
-        return new UpdateProductUseCase(updateProductOutputPort, findProductByIdInputPort);
+    public UpdateProductUseCase updateProductUseCase(ProductGateway productGateway) {
+        return new UpdateProductUseCaseImpl(productGateway);
     }
 }
