@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrderDataSource {
-
     void insert(Order order);
     void updateStatus(Order order);
     Optional<Order> findById(String id);
     List<Order> findByStatus(OrderStatus status);
-
 }

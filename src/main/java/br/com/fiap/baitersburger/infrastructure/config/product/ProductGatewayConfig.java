@@ -8,11 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ProductGatewayConfig {
-
     @Bean
-    public ProductGateway productGateway(
-            ProductDataSource productDataSource
-    ) {
+    public ProductGateway productGateway(ProductDataSource productDataSource) {
         return new ProductGatewayImpl(productDataSource);
     }
 }
