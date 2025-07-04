@@ -1,17 +1,18 @@
 package br.com.fiap.baitersburger.infrastructure.config.product;
 
-import br.com.fiap.baitersburger.application.usecase.product.InsertProductUseCaseImpl;
 import br.com.fiap.baitersburger.domain.port.out.gateway.ProductGateway;
 import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
+import br.com.fiap.baitersburger.interfaceadapters.gateway.ProductGatewayImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class InsertProductConfig {
+public class ProductGatewayConfig {
+
     @Bean
-    public InsertProductUseCaseImpl insertProductUseCase(
-            ProductGateway productGateway
+    public ProductGateway productGateway(
+            ProductDataSource productDataSource
     ) {
-        return new InsertProductUseCaseImpl(productGateway);
+        return new ProductGatewayImpl(productDataSource);
     }
 }

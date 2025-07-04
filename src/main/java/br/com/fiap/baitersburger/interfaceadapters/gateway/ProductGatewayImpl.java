@@ -8,31 +8,35 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProductGatewayImpl implements ProductGateway {
+
+    private final ProductDataSource productDataSource;
+
     public ProductGatewayImpl(ProductDataSource productDataSource) {
+        this.productDataSource = productDataSource;
     }
 
     @Override
     public void insert(Product product) {
-
+        this.productDataSource.insert(product);
     }
 
     @Override
     public void update(Product product) {
-
+        this.productDataSource.update(product);
     }
 
     @Override
     public void delete(String id) {
-
+        this.productDataSource.delete(id);
     }
 
     @Override
     public Optional<Product> findById(String id) {
-        return Optional.empty();
+        return this.productDataSource.findById(id);
     }
 
     @Override
     public List<Product> findByCategory(String category) {
-        return List.of();
+        return this.productDataSource.findByCategory(category);
     }
 }

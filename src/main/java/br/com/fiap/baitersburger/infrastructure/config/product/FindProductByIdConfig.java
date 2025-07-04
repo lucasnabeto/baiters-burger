@@ -1,7 +1,7 @@
 package br.com.fiap.baitersburger.infrastructure.config.product;
 
 import br.com.fiap.baitersburger.application.usecase.product.FindProductByIdUseCaseImpl;
-import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
+import br.com.fiap.baitersburger.domain.port.out.gateway.ProductGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class FindProductByIdConfig {
     @Bean
     public FindProductByIdUseCaseImpl findProductByIdUseCase(
-            ProductDataSource productDataSource
+            ProductGateway productGateway
     ) {
-        return new FindProductByIdUseCaseImpl(productDataSource);
+        return new FindProductByIdUseCaseImpl(productGateway);
     }
 }

@@ -2,9 +2,13 @@ package br.com.fiap.baitersburger.interfaceadapters.controller;
 
 import br.com.fiap.baitersburger.application.dto.request.ProductRequestDTO;
 import br.com.fiap.baitersburger.application.dto.response.ProductResponseDTO;
+import br.com.fiap.baitersburger.application.usecase.product.*;
 import br.com.fiap.baitersburger.domain.port.in.controller.ProductController;
 import br.com.fiap.baitersburger.domain.port.in.usecase.product.*;
+import br.com.fiap.baitersburger.domain.port.out.gateway.ProductGateway;
+import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
 import br.com.fiap.baitersburger.infrastructure.web.mapper.ProductMapper;
+import br.com.fiap.baitersburger.interfaceadapters.gateway.ProductGatewayImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,19 +24,16 @@ public class ProductControllerImpl implements ProductController {
     private final DeleteProductUseCase deleteProductUseCase;
     private final FindProductByIdUseCase findProductByIdUseCase;
 
-    public ProductControllerImpl(ProductMapper productMapper,
-                                 InsertProductUseCase insertProductUseCase,
-                                 FindProductByCategoryUseCase findProductByCategoryUseCase,
-                                 UpdateProductUseCase updateProductUseCase,
-                                 DeleteProductUseCase deleteProductUseCase,
-                                 FindProductByIdUseCase findProductByIdUseCase) {
+    public ProductControllerImpl(ProductMapper productMapper, ProductDataSource productDataSource) {
+        ProductGateway productGateway = new ProductGatewayImpl(productDataSource);
+
 
         this.productMapper = productMapper;
-        this.insertProductUseCase = insertProductUseCase;
-        this.findProductByCategoryUseCase = findProductByCategoryUseCase;
-        this.updateProductUseCase = updateProductUseCase;
-        this.deleteProductUseCase = deleteProductUseCase;
-        this.findProductByIdUseCase = findProductByIdUseCase;
+        this.insertProductUseCase = new InsertProductUseCaseImpl(productGateway);
+        this.findProductByCategoryUseCase = new FindProductByCategoryUseCaseImpl(productGateway);
+        this.updateProductUseCase = new UpdateProductUseCaseImpl(productGateway);
+        this.deleteProductUseCase = new DeleteProductUseCaseImpl(productGateway);
+        this.findProductByIdUseCase = new FindProductByIdUseCaseImpl(productGateway);
     }
 
     @Override
