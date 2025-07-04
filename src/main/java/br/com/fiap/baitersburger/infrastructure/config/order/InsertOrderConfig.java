@@ -1,9 +1,13 @@
 package br.com.fiap.baitersburger.infrastructure.config.order;
 
-import br.com.fiap.baitersburger.core.application.usecase.order.InsertOrderUseCase;
-import br.com.fiap.baitersburger.core.domain.ports.out.customer.FindCustomerByCpfOutputPort;
-import br.com.fiap.baitersburger.core.domain.ports.out.order.InsertOrderOutputPort;
-import br.com.fiap.baitersburger.core.domain.ports.out.product.FindProductByIdOutputPort;
+import br.com.fiap.baitersburger.application.usecase.order.InsertOrderUseCaseImpl;
+import br.com.fiap.baitersburger.domain.port.in.usecase.order.InsertOrderUseCase;
+import br.com.fiap.baitersburger.domain.port.out.gateway.CustomerGateway;
+import br.com.fiap.baitersburger.domain.port.out.gateway.OrderGateway;
+import br.com.fiap.baitersburger.domain.port.out.gateway.ProductGateway;
+import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
+import br.com.fiap.baitersburger.domain.port.out.repository.OrderDataSource;
+import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,10 +15,10 @@ import org.springframework.context.annotation.Configuration;
 public class InsertOrderConfig {
     @Bean
     public InsertOrderUseCase insertOrderUseCase(
-            InsertOrderOutputPort insertOrderOutputPort,
-            FindProductByIdOutputPort findProductByIdOutputPort,
-            FindCustomerByCpfOutputPort findCustomerByCpfOutputPort
+            CustomerGateway customerGateway,
+            OrderGateway orderGateway,
+            ProductGateway productGateway
     ) {
-        return new InsertOrderUseCase(insertOrderOutputPort, findProductByIdOutputPort, findCustomerByCpfOutputPort);
+        return new InsertOrderUseCaseImpl(customerGateway, orderGateway, productGateway);
     }
 }
