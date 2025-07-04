@@ -1,8 +1,8 @@
 package br.com.fiap.baitersburger.domain.port.in.controller;
 
-import br.com.fiap.baitersburger.application.dto.UpdateOrderStatusDTO;
-import br.com.fiap.baitersburger.application.dto.request.OrderRequestDTO;
-import br.com.fiap.baitersburger.application.dto.response.OrderResponseDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.UpdateOrderStatusDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.request.OrderRequestDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.response.OrderResponseDTO;
 import br.com.fiap.baitersburger.domain.enums.OrderStatus;
 
 import java.util.List;
