@@ -31,3 +31,23 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Diretórios e arquivos gerados localmente pelo Terraform
+**/.terraform/*
+.terraform.lock.hcl
+
+# Arquivos de estado locais
+*.tfstate
+*.tfstate.*
+
+# Arquivos de variáveis que podem conter dados sensíveis
+*.tfvars
+*.tfvars.json
+
+# Arquivos de log de erro
+crash.log
+crash.*.log
+
+# Arquivos de configuração da CLI do Terraform
+.terraformrc
+terraform.rc
