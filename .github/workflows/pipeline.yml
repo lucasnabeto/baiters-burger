@@ -47,7 +47,7 @@ jobs:
 
   docker-build:
     needs: [test, build]
-    uses: pipeline.yml
+    uses: ./.github/workflows/docker.yml
     secrets: inherit
 
   deploy_eks:
