@@ -1,11 +1,11 @@
 package br.com.fiap.baitersburger.infrastructure.web.controller;
 
-import br.com.fiap.baitersburger.application.dto.request.CustomerRequestDTO;
-import br.com.fiap.baitersburger.application.dto.response.CustomerResponseDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.request.CustomerRequestDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.response.CustomerResponseDTO;
 import br.com.fiap.baitersburger.domain.model.Customer;
 import br.com.fiap.baitersburger.domain.port.in.controller.CustomerController;
 import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
-import br.com.fiap.baitersburger.infrastructure.web.mapper.CustomerMapper;
+import br.com.fiap.baitersburger.interfaceadapters.presenter.CustomerPresenter;
 import br.com.fiap.baitersburger.interfaceadapters.controller.CustomerControllerImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerRestController {
 
     private final CustomerController customerController;
-    private final CustomerMapper customerMapper;
+    private final CustomerPresenter customerPresenter;
     
-    public CustomerRestController(CustomerMapper customerMapper, CustomerDataSource dataSource) {
-        this.customerMapper = customerMapper;
-        this.customerController = new CustomerControllerImpl(this.customerMapper,dataSource);
+    public CustomerRestController(CustomerPresenter customerPresenter, CustomerDataSource dataSource) {
+        this.customerPresenter = customerPresenter;
+        this.customerController = new CustomerControllerImpl(this.customerPresenter,dataSource);
     }
 
     @GetMapping("/{cpf}")

@@ -1,4 +1,4 @@
-package br.com.fiap.baitersburger.application.dto.request;
+package br.com.fiap.baitersburger.interfaceadapters.dto.request;
 
 import br.com.fiap.baitersburger.infrastructure.web.validator.ValidCPF;
 import jakarta.validation.constraints.Email;

@@ -1,4 +1,4 @@
-package br.com.fiap.baitersburger.application.dto.response;
+package br.com.fiap.baitersburger.interfaceadapters.dto.response;
 
 import br.com.fiap.baitersburger.domain.enums.Category;
 import lombok.Data;

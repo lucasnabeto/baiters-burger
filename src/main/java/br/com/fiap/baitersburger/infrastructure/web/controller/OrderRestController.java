@@ -1,14 +1,14 @@
 package br.com.fiap.baitersburger.infrastructure.web.controller;
 
-import br.com.fiap.baitersburger.application.dto.request.OrderRequestDTO;
-import br.com.fiap.baitersburger.application.dto.response.OrderResponseDTO;
-import br.com.fiap.baitersburger.application.dto.UpdateOrderStatusDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.request.OrderRequestDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.response.OrderResponseDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.UpdateOrderStatusDTO;
 import br.com.fiap.baitersburger.domain.port.in.controller.OrderController;
 import br.com.fiap.baitersburger.domain.enums.OrderStatus;
 import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
 import br.com.fiap.baitersburger.domain.port.out.repository.OrderDataSource;
 import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
-import br.com.fiap.baitersburger.infrastructure.web.mapper.OrderMapper;
+import br.com.fiap.baitersburger.interfaceadapters.presenter.OrderPresenter;
 import br.com.fiap.baitersburger.interfaceadapters.controller.OrderControllerImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -22,8 +22,8 @@ import java.util.List;
 public class OrderRestController {
     private final OrderController orderController;
 
-    public OrderRestController(OrderMapper orderMapper, CustomerDataSource customerDataSource, OrderDataSource orderDataSource, ProductDataSource productDataSource) {
-        this.orderController = new OrderControllerImpl(orderMapper, customerDataSource, orderDataSource, productDataSource);
+    public OrderRestController(OrderPresenter orderPresenter, CustomerDataSource customerDataSource, OrderDataSource orderDataSource, ProductDataSource productDataSource) {
+        this.orderController = new OrderControllerImpl(orderPresenter, customerDataSource, orderDataSource, productDataSource);
     }
 
     @PostMapping

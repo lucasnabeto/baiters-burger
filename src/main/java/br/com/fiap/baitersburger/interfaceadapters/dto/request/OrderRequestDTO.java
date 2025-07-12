@@ -1,4 +1,4 @@
-package br.com.fiap.baitersburger.application.dto.request;
+package br.com.fiap.baitersburger.interfaceadapters.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
