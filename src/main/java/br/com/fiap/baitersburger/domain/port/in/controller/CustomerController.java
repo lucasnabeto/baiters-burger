@@ -1,7 +1,7 @@
 package br.com.fiap.baitersburger.domain.port.in.controller;
 
-import br.com.fiap.baitersburger.application.dto.request.CustomerRequestDTO;
-import br.com.fiap.baitersburger.application.dto.response.CustomerResponseDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.request.CustomerRequestDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.response.CustomerResponseDTO;
 
 public interface CustomerController {
     CustomerResponseDTO find(String cpf);
