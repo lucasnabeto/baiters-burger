@@ -20,6 +20,14 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: us-east-1
 
+      - name: Create ECR repository if it does not exist
+        run: |
+          aws ecr create-repository \
+            --repository-name baitersburger \
+            --image-scanning-configuration scanOnPush=true \
+            --image-tag-mutability MUTABLE \
+            || true
+
       - name: Log in to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
