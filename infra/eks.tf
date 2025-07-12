@@ -1,6 +1,9 @@
-# utiliza uma vpc já existente
+# Bloco de Data Source para buscar a VPC existente
 data "aws_vpc" "existing" {
-  id = "vpc-09127274c0d59cf8b"
+  filter {
+    name   = "state"
+    values = ["available"]
+  }
 }
 
 # Procura as sub-redes que pertencem a essa VPC, mas filtra pelas AZs suportadas.
