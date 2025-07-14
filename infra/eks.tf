@@ -1,6 +1,9 @@
-# utiliza uma vpc já existente
+# Bloco de Data Source para buscar a VPC existente
 data "aws_vpc" "existing" {
-  id = "vpc-09127274c0d59cf8b"
+  filter {
+    name   = "state"
+    values = ["available"]
+  }
 }
 
 # Procura as sub-redes que pertencem a essa VPC, mas filtra pelas AZs suportadas.
@@ -40,7 +43,7 @@ resource "aws_eks_node_group" "worker_nodes" {
   node_role_arn   = data.aws_iam_role.eks_cluster_role.arn
   subnet_ids      = data.aws_subnets.filtered_for_eks.ids
 
-  instance_types = ["t3.medium"]
+  instance_types = ["t2.micro"]
   scaling_config {
     desired_size = 2
     min_size     = 1
