@@ -27,7 +27,7 @@ jobs:
         run: terraform -chdir=infra init
 
       - name: Terraform Plan
-        run: terraform plan -chdir=infra -destroy
+        run: terraform -chdir=infra plan -destroy
 
       - name: Terraform Destroy
         run: terraform -chdir=infra apply -destroy -auto-approve
