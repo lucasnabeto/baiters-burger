@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerRestController {
 
     private final CustomerController customerController;
-    private final CustomerPresenter customerPresenter;
-    
+
     public CustomerRestController(CustomerPresenter customerPresenter, CustomerDataSource dataSource) {
-        this.customerPresenter = customerPresenter;
-        this.customerController = new CustomerControllerImpl(this.customerPresenter,dataSource);
+        this.customerController = new CustomerControllerImpl(customerPresenter,dataSource);
     }
 
     @GetMapping("/{cpf}")

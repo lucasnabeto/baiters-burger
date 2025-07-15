@@ -2,6 +2,7 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: baitersburger-hpa
+  namespace: baitersburger
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
