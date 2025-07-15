@@ -43,6 +43,8 @@ jobs:
         run: |
           sed -i 's|000000000000.dkr.ecr.us-east-1.amazonaws.com/baitersburger:placeholder|${{ inputs.image_uri }}|' k8s/app-deployment.yaml
           
-          kubectl apply -f k8s/
+          kubectl apply -f k8s/namespace.yaml
           
-          kubectl rollout status deployment/baitersburger-app --timeout=3m
+          kubectl apply -f k8s/ --namespace=baitersburger
+          
+          kubectl rollout status deployment/baitersburger-app --timeout=3m --namespace=baitersburger
