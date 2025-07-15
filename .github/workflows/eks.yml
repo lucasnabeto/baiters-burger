@@ -47,4 +47,4 @@ jobs:
           
           kubectl apply -f k8s/ --namespace=baitersburger
           
-          kubectl rollout status deployment/baitersburger-app --timeout=3m --namespace=baitersburger
+          kubectl rollout status deployment/baitersburger-app --timeout=5m --namespace=baitersburger

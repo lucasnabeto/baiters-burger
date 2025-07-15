@@ -1,11 +1,9 @@
 name: BaitersBurger Pipeline
 
 on:
-  push:
-    branches: [ '**' ]
   pull_request:
-    branches: [ '**' ]
-
+    branches:
+      - "develop"
 jobs:
   test:
     runs-on: ubuntu-latest
