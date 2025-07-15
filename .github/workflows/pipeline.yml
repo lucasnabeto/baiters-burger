@@ -2,8 +2,10 @@ name: BaitersBurger Pipeline
 
 on:
   pull_request:
+    types:
+      - closed
     branches:
-      - "develop"
+      - 'develop'
 jobs:
   test:
     runs-on: ubuntu-latest
