@@ -1,4 +1,4 @@
-package br.com.fiap.baitersburger.application.dto.request;
+package br.com.fiap.baitersburger.interfaceadapters.dto.request;
 
 import br.com.fiap.baitersburger.domain.enums.Category;
 import jakarta.validation.constraints.NotBlank;

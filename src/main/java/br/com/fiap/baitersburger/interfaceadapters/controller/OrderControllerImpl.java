@@ -1,8 +1,8 @@
 package br.com.fiap.baitersburger.interfaceadapters.controller;
 
-import br.com.fiap.baitersburger.application.dto.UpdateOrderStatusDTO;
-import br.com.fiap.baitersburger.application.dto.request.OrderRequestDTO;
-import br.com.fiap.baitersburger.application.dto.response.OrderResponseDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.UpdateOrderStatusDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.request.OrderRequestDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.response.OrderResponseDTO;
 import br.com.fiap.baitersburger.application.usecase.order.FindOrderByStatusUseCaseImpl;
 import br.com.fiap.baitersburger.application.usecase.order.InsertOrderUseCaseImpl;
 import br.com.fiap.baitersburger.application.usecase.order.UpdateOrderStatusUseCaseImpl;
@@ -17,7 +17,7 @@ import br.com.fiap.baitersburger.domain.port.out.gateway.ProductGateway;
 import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
 import br.com.fiap.baitersburger.domain.port.out.repository.OrderDataSource;
 import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
-import br.com.fiap.baitersburger.infrastructure.web.mapper.OrderMapper;
+import br.com.fiap.baitersburger.interfaceadapters.presenter.OrderPresenter;
 import br.com.fiap.baitersburger.interfaceadapters.gateway.CustomerGatewayImpl;
 import br.com.fiap.baitersburger.interfaceadapters.gateway.OrderGatewayImpl;
 import br.com.fiap.baitersburger.interfaceadapters.gateway.ProductGatewayImpl;
@@ -30,9 +30,9 @@ public class OrderControllerImpl implements OrderController {
     private final InsertOrderUseCase insertOrderUseCase;
     private final FindOrderByStatusUseCase findOrderByStatusUseCase;
     private final UpdateOrderStatusUseCase updateOrderStatusUseCase;
-    private final OrderMapper orderMapper;
+    private final OrderPresenter orderPresenter;
 
-    public OrderControllerImpl(OrderMapper orderMapper, CustomerDataSource customerDataSource, OrderDataSource orderDataSource, ProductDataSource productDataSource) {
+    public OrderControllerImpl(OrderPresenter orderPresenter, CustomerDataSource customerDataSource, OrderDataSource orderDataSource, ProductDataSource productDataSource) {
         CustomerGateway customerGateway = new CustomerGatewayImpl(customerDataSource);
         OrderGateway orderGateway = new OrderGatewayImpl(orderDataSource);
         ProductGateway productGateway = new ProductGatewayImpl(productDataSource);
@@ -41,7 +41,7 @@ public class OrderControllerImpl implements OrderController {
         this.findOrderByStatusUseCase = new FindOrderByStatusUseCaseImpl(orderGateway);
         this.updateOrderStatusUseCase = new UpdateOrderStatusUseCaseImpl(orderGateway);
 
-        this.orderMapper = orderMapper;
+        this.orderPresenter = orderPresenter;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class OrderControllerImpl implements OrderController {
     public List<OrderResponseDTO> findByStatus(OrderStatus status) {
         return findOrderByStatusUseCase.findByStatus(status)
                 .stream()
-                .map((orderMapper::toOrderResponseDTO))
+                .map((orderPresenter::toOrderResponseDTO))
                 .toList();
     }
 
