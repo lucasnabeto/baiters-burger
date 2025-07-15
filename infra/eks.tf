@@ -45,9 +45,9 @@ resource "aws_eks_node_group" "worker_nodes" {
 
   instance_types = ["t2.micro"]
   scaling_config {
-    desired_size = 2
+    desired_size = 1
     min_size     = 1
-    max_size     = 3
+    max_size     = 2
   }
 
   depends_on = [aws_eks_cluster.baitersburger_cluster]
