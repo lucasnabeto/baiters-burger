@@ -16,8 +16,8 @@ public class OrderGatewayImpl implements OrderGateway {
     }
 
     @Override
-    public void insert(Order order) {
-        this.dataSource.insert(order);
+    public Order insert(Order order) {
+        return this.dataSource.insert(order);
     }
 
     @Override

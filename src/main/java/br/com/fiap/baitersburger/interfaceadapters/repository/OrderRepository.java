@@ -22,9 +22,9 @@ public class OrderRepository implements OrderDataSource {
     }
 
     @Override
-    public void insert(Order order) {
+    public Order insert(Order order) {
         var orderEntity = orderEntityMapper.toOrderEntity(order);
-        orderMongoRepository.insert(orderEntity);
+        return orderEntityMapper.toOrder(orderMongoRepository.insert(orderEntity));
     }
 
     @Override

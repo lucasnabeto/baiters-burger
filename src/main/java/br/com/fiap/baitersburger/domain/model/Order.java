@@ -1,6 +1,7 @@
 package br.com.fiap.baitersburger.domain.model;
 
 import br.com.fiap.baitersburger.domain.enums.OrderStatus;
+import br.com.fiap.baitersburger.domain.valueobject.QrCode;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ public class Order {
     private LocalDateTime createdAt;
     private OrderStatus status;
     private Customer customer;
+    private QrCode qrCode;
 
     public String getId() {
         return id;
@@ -60,6 +62,14 @@ public class Order {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public QrCode getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(QrCode qrCode) {
+        this.qrCode = qrCode;
     }
 
     public void calculateTotalPrice(){
