@@ -11,4 +11,5 @@ public interface OrderGateway {
     void updateStatus(Order order);
     Optional<Order> findById(String id);
     List<Order> findByStatus(OrderStatus status);
+    List<Order> getCurrentOrders(List<OrderStatus> statuses);
 }

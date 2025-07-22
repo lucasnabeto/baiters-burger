@@ -1,6 +1,7 @@
 package br.com.fiap.baitersburger.infrastructure.web.controller;
 
 import br.com.fiap.baitersburger.domain.port.out.api.GenerateQrDataSource;
+import br.com.fiap.baitersburger.interfaceadapters.dto.request.CurrentOrdersDTO;
 import br.com.fiap.baitersburger.interfaceadapters.dto.request.mercadopago.MarketPaidRequestDTO;
 import br.com.fiap.baitersburger.interfaceadapters.dto.request.OrderRequestDTO;
 import br.com.fiap.baitersburger.interfaceadapters.dto.response.InsertOrderResponseDTO;
@@ -14,6 +15,7 @@ import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
 import br.com.fiap.baitersburger.interfaceadapters.presenter.OrderPresenter;
 import br.com.fiap.baitersburger.interfaceadapters.controller.OrderControllerImpl;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +43,15 @@ public class OrderRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderResponseDTO>> findByStatus(@RequestParam OrderStatus status) {
+    public ResponseEntity<List<CurrentOrdersDTO>> getCurrentOrders() {
+        var order = orderController.getCurrentOrders();
+
+        return ResponseEntity.ok(order);
+    }
+
+
+    @GetMapping("/orderstatus/{status}")
+    public ResponseEntity<List<OrderResponseDTO>> findByStatus(@PathVariable final OrderStatus status) {
         var order = orderController.findByStatus(status);
 
         return ResponseEntity.ok(order);
