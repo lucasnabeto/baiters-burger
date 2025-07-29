@@ -45,6 +45,11 @@ jobs:
           
           kubectl apply -f k8s/namespace.yaml
           
+          kubectl create secret generic atlas-connection-secret \
+            --namespace=baitersburger \
+            --from-literal=connectionString="${{secrets.MONGO_URI}}" \
+            --dry-run=client -o yaml | kubectl apply -f -
+          
           kubectl apply -f k8s/ --namespace=baitersburger
           
-          kubectl rollout status deployment/baitersburger-app --timeout=5m --namespace=baitersburger
+          kubectl rollout status deployment/baitersburger-app --namespace=baitersburger --timeout=5m
