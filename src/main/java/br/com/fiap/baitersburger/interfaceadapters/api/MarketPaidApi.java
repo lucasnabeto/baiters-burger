@@ -5,13 +5,12 @@ import br.com.fiap.baitersburger.interfaceadapters.dto.request.mercadopago.*;
 import br.com.fiap.baitersburger.interfaceadapters.dto.response.mercadopago.ResponseQRCodeDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.http.HttpHeaders;
 
-import java.rmi.server.UID;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,7 +20,10 @@ public class MarketPaidApi implements GenerateQrDataSource {
     private final RestTemplate restTemplate;
 
     @Value("${MERCADO_PAGO_ACCESS_TOKEN}")
-    private static String MERCADO_PAGO_ACCESS_TOKEN;
+    private String MERCADO_PAGO_ACCESS_TOKEN;
+
+    @Value("${MERCADO_PAGO_EXTERNAL_POS_ID}")
+    private String MERCADO_PAGO_EXTERNAL_POS_ID;
 
     public MarketPaidApi() {
         restTemplate = new RestTemplate();
@@ -42,8 +44,8 @@ public class MarketPaidApi implements GenerateQrDataSource {
         return response.getBody();
     }
 
-    private static RequestQRCodeDTO createRequestDto(String orderId, String amount) {
-        var qr = new QR("iddaniel", "dynamic");
+    private RequestQRCodeDTO createRequestDto(String orderId, String amount) {
+        var qr = new QR(MERCADO_PAGO_EXTERNAL_POS_ID, "dynamic");
         var configQrCode = new ConfigQRCode(qr);
         var payment = new Payment(amount);
         var transaction = new Transaction(List.of(payment));
@@ -51,7 +53,7 @@ public class MarketPaidApi implements GenerateQrDataSource {
         return new RequestQRCodeDTO("qr", amount, orderId, configQrCode, transaction);
     }
 
-    private static HttpHeaders createHeaders() {
+    private HttpHeaders createHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + MERCADO_PAGO_ACCESS_TOKEN);

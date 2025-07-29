@@ -28,6 +28,10 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   key: MERCADO_PAGO_ACCESS_TOKEN
+            - name: MERCADO_PAGO_EXTERNAL_POS_ID
+              valueFrom:
+                configMapKeyRef:
+                  key: MERCADO_PAGO_EXTERNAL_POS_ID
           resources:
             requests:
               cpu: "100m"
