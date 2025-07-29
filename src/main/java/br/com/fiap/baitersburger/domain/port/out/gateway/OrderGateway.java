@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrderGateway {
-    void insert(Order order);
+    Order insert(Order order);
     void updateStatus(Order order);
     Optional<Order> findById(String id);
     List<Order> findByStatus(OrderStatus status);
+    List<Order> getCurrentOrders(List<OrderStatus> statuses);
 }

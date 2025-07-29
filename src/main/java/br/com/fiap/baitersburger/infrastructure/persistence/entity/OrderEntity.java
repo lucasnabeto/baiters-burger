@@ -24,4 +24,5 @@ public class OrderEntity {
     private OrderStatus status;
 
     private CustomerEntity customer;
+
 }

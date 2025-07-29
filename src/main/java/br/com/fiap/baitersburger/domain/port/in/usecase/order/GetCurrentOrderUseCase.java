@@ -4,6 +4,6 @@ import br.com.fiap.baitersburger.domain.model.Order;
 
 import java.util.List;
 
-public interface InsertOrderUseCase {
-    Order insert(List<String> productsIds, String customerCpf);
+public interface GetCurrentOrderUseCase {
+    List<Order> getCurrentOrders();
 }
