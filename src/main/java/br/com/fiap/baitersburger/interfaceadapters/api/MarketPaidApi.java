@@ -3,6 +3,7 @@ package br.com.fiap.baitersburger.interfaceadapters.api;
 import br.com.fiap.baitersburger.domain.port.out.api.GenerateQrDataSource;
 import br.com.fiap.baitersburger.interfaceadapters.dto.request.mercadopago.*;
 import br.com.fiap.baitersburger.interfaceadapters.dto.response.mercadopago.ResponseQRCodeDTO;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ import java.util.UUID;
 public class MarketPaidApi implements GenerateQrDataSource {
 
     private final RestTemplate restTemplate;
+
+    @Value("${MERCADO_PAGO_ACCESS_TOKEN}")
+    private static String MERCADO_PAGO_ACCESS_TOKEN;
 
     public MarketPaidApi() {
         restTemplate = new RestTemplate();
@@ -50,7 +54,7 @@ public class MarketPaidApi implements GenerateQrDataSource {
     private static HttpHeaders createHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer APP_USR-2826639861257836-071718-938faa155c365f9809943453301646cb-2563305595");
+        headers.set("Authorization", "Bearer " + MERCADO_PAGO_ACCESS_TOKEN);
         headers.set("X-Idempotency-Key", UUID.randomUUID().toString());
 
         return headers;

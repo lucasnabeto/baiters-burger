@@ -24,6 +24,10 @@ spec:
                 secretKeyRef:
                   name: atlas-connection-secret
                   key: connectionString
+            - name: MERCADO_PAGO_ACCESS_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  key: MERCADO_PAGO_ACCESS_TOKEN
           resources:
             requests:
               cpu: "100m"

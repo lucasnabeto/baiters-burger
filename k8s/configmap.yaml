@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mercado-pago-config
+  namespace: baitersburger
+data:
+  MERCADO_PAGO_ACCESS_TOKEN: "APP_USR-2826639861257836-071718-938faa155c365f9809943453301646cb-2563305595"
