@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mercado-pago-config
+  namespace: baitersburger
+data:
+  MERCADO_PAGO_ACCESS_TOKEN: "APP_USR-5572638431522153-071721-74ea94abfed9417560e04a104022d784-2568822530"
+  MERCADO_PAGO_EXTERNAL_POS_ID: "BAIT"
+  server.port: "8080"
