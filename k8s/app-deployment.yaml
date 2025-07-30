@@ -27,14 +27,17 @@ spec:
             - name: MERCADO_PAGO_ACCESS_TOKEN
               valueFrom:
                 configMapKeyRef:
+                  name: mercado-pago-config
                   key: MERCADO_PAGO_ACCESS_TOKEN
             - name: MERCADO_PAGO_EXTERNAL_POS_ID
               valueFrom:
                 configMapKeyRef:
+                  name: mercado-pago-config
                   key: MERCADO_PAGO_EXTERNAL_POS_ID
             - name: MERCADO_PAGO_URL
               valueFrom:
                 configMapKeyRef:
+                  name: mercado-pago-config
                   key: MERCADO_PAGO_URL
           resources:
             requests:
