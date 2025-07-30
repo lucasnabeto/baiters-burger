@@ -11,11 +11,12 @@ public interface OrderMongoRepository extends MongoRepository<OrderEntity,String
     List<OrderEntity> findByStatus(OrderStatus status);
 
     @Aggregation(pipeline = {
+            "{ $match: { status: { $in: ['READY', 'PREPARING', 'RECEIVED'] } } }",
             "{ $addFields: { statusOrder: { $switch: { branches: [ " +
                     "{ case: { $eq: [ \"$status\", \"READY\" ] }, then: 0 }, " +
                     "{ case: { $eq: [ \"$status\", \"PREPARING\" ] }, then: 1 }, " +
                     "{ case: { $eq: [ \"$status\", \"RECEIVED\" ] }, then: 2 } " +
-                    "], default: 3 } } } }",
+                    "] } } } }",
             "{ $sort: { statusOrder: 1, createdAt: 1 } }"
     })
     List<OrderEntity> findByStatuses(List<OrderStatus> statuses);

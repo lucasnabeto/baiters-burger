@@ -32,6 +32,10 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   key: MERCADO_PAGO_EXTERNAL_POS_ID
+            - name: MERCADO_PAGO_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: MERCADO_PAGO_URL
           resources:
             requests:
               cpu: "100m"
