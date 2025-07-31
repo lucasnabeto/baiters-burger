@@ -2,7 +2,6 @@ package br.com.fiap.baitersburger.infrastructure.web.controller;
 
 import br.com.fiap.baitersburger.interfaceadapters.dto.request.CustomerRequestDTO;
 import br.com.fiap.baitersburger.interfaceadapters.dto.response.CustomerResponseDTO;
-import br.com.fiap.baitersburger.domain.model.Customer;
 import br.com.fiap.baitersburger.domain.port.in.controller.CustomerController;
 import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
 import br.com.fiap.baitersburger.interfaceadapters.presenter.CustomerPresenter;
