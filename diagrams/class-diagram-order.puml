@@ -1,0 +1,348 @@
+@startuml
+' ======= Domain =======
+class Customer {
+  - cpf: String
+  - name: String
+  - email: String
+}
+class Product {
+  - id: String
+  - productName: String
+  - price: BigDecimal
+  - category: String
+  - imagesUrls: List~String~
+  - description: String
+  + getId(): String
+  + setId(String): void
+  + getProductName(): String
+  + setProductName(String): void
+  + getCategory(): Category
+  + setCategory(Category): void
+  + getPrice(): BigDecimal
+  + setPrice(BigDecimal): void
+  + getDescription(): String
+  + setDescription(String): void
+  + getImagesUrls(): List<String>
+  + setImagesUrls(List<String>): void
+}
+class Order {
+  - id: String
+  - products: List~Product~
+  - customer: Customer
+  - totalPrice: BigDecimal
+  - createdAt: LocalDateTime
+  - status: String
+  - qrCode: QrCode
+}
+class QrCode {
+  + qrData(): String
+}
+
+' ======= DTOs =======
+
+class OrderRequestDTO  <<Data>>{
+  - productsIds: List<String>
+  - customerCpf: String
+  + getProductsIds(): List<String>
+  + getCustomerCpf(): String
+  + setProductsIds(List<String>): void
+}
+class OrderResponseDTO <<Data>> {
+  - products: List<Product>
+  - totalPrice: BigDecimal
+  - createdAt: LocalDateTime
+  - status: OrderStatus
+  - customer: Customer
+}
+class CurrentOrdersDTO <<record>> {
+  - id: String
+  - totalPrice: BigDecimal
+  - status: String
+  - products: List<CurrentProducts>
+  - createdAt: String
+  - name: String
+}
+class InsertOrderResponseDTO <<record>> {
+  - orderId: String
+  - totalPrice: BigDecimal
+  - qrcode: String
+}
+
+'=========== interfaces ===================
+' ======= Presenters =======
+interface OrderPresenter {
+  + Order toOrder(OrderRequestDTO)
+  + OrderResponseDTO toOrderResponseDTO(Order)
+  + CurrentOrdersDTO toCurrentOrdersDTO(Order)
+  + List~CurrentOrdersDTO~ toCurrentOrdersDTO(List~Order~)
+  + InsertOrderResponseDTO toInsertOrderResponseDTO(Order)
+  + String extractQrCode(QrCode)
+}
+
+' ======= Controllers Interfaces =======
+interface OrderController{
+  InsertOrderResponseDTO insert(OrderRequestDTO orderRequestDTO)
+  List<OrderResponseDTO> findByStatus( OrderStatus status)
+  void updateOrderStatus( String orderId, UpdateOrderStatusDTO updateOrderStatusDTO)
+  List<CurrentOrdersDTO> getCurrentOrders()
+}
+
+
+' ======= Gateways Interfaces =======
+interface OrderGateway {
+  + Order insert(Order order)
+  + void updateStatus(Order order)
+  + Optional<Order> findById(String id)
+  + List<Order> findByStatus(OrderStatus status)
+  + List<Order> getCurrentOrders(List<OrderStatus> statuses)
+}
+interface ProductGateway {
+  + void insert(Product product)
+  + void update(Product product)
+  + void delete(String id);
+  + Optional<Product> findById(String id)
+  + List<Product> findByCategory(String category)
+}
+
+interface CustomerGateway {
+  + void insert(Customer customer)
+  + Optional<Customer> findByCpf(String cpf)
+  + Optional<Customer> findByEmail(String email)
+}
+interface GenerateQrCodeGateway {
+  + ResponseQRCodeDTO generateQr(String orderId, String amount)
+}
+
+' ========== Use Cases Intercaces =======
+interface InsertOrderUseCase {
+  + Order insert(List<String> productsIds, String customerCpf)
+}
+
+interface FindOrderByStatusUseCase {
+  + List<Order> findByStatus(OrderStatus orderStatus)
+}
+
+interface UpdateOrderStatusUseCase {
+  + void updateOrderStatus(String orderId, OrderStatus status)
+}
+
+interface GetCurrentOrderUseCase {
+  + List<Order> getCurrentOrders();
+}
+
+
+' ======= Classes =======
+
+class ProductRepository {
+  - ProductMongoRepository productMongoRepository
+  - ProductEntityMapper productEntityMapper
+  + ProductRepository(ProductMongoRepository, ProductEntityMapper) <<constructor>>
+  + void insert(Product product)
+  + void update(Product product)
+  + void delete(String id)
+  + Optional<Product> findById(String id)
+  + List<Product> findByCategory(String category)
+}
+
+' ======= Use Cases =======
+
+class GenerateQrCodeGatewayImpl {
+  - dataSource: GenerateQrDataSource
+  + GenerateQrCodeGatewayImpl(GenerateQrDataSource)
+  + ResponseQRCodeDTO generateQr(String, String)
+
+}
+
+class CustomerGatewayImpl {
+  - dataSource: CustomerDataSource
+  + CustomerGatewayImpl(CustomerDataSource)
+  + void insert(Customer)
+  + Optional<Customer> findByCpf(String)
+  + Optional<Customer> findByEmail(String)
+}
+
+class OrderGatewayImpl {
+  - dataSource: OrderDataSource
+  + OrderGatewayImpl(OrderDataSource)
+  + Order insert(Order)
+  + void updateStatus(Order)
+  + Optional<Order> findById(String)
+  + List<Order> findByStatus(OrderStatus)
+  + List<Order> getCurrentOrders(List<OrderStatus>)
+}
+class ProductGatewayImpl{
+  - productDataSource: ProductDataSource
+  + ProductGatewayImpl(ProductDataSource) <<constructor>>
+  + void insert(Product)
+  + void update(Product)
+  + void delete(String)
+  + Optional<Product> findById(String)
+  + List<Product> findByCategory(String)
+}
+
+class MercadoPagoApi {
+  - restTemplate: RestTemplate
+  - createRequestQrCode: CreateRequestQrCode
+  - createHeadersQrCode: CreateHeadersQrCode
+  - MERCADO_PAGO_URL: String
+  + MercadoPagoApi(RestTemplate, CreateRequestQrCode, CreateHeadersQrCode)
+  + ResponseQRCodeDTO generateQr(String, String)
+}
+
+class CustomerRepository {
+  - customerRepository: CustomerMongoRepository
+  - customerEntityMapper: CustomerEntityMapper
+  + CustomerRepository(CustomerMongoRepository, CustomerEntityMapper)
+  + void insert(Customer)
+  + Optional<Customer> findByCpf(String)
+  + Optional<Customer> findByEmail(String)
+}
+
+
+class OrderRepository {
+  - orderMongoRepository: OrderMongoRepository
+  - orderEntityMapper: OrderEntityMapper
+  + OrderRepository(OrderMongoRepository, OrderEntityMapper)
+  + Order insert(Order)
+  + void updateStatus(Order)
+  + Optional<Order> findById(String)
+  + List<Order> findByStatus(OrderStatus)
+  + List<Order> getCurrentOrders(List<OrderStatus>)
+}
+
+class InsertOrderUseCaseImpl {
+  - CustomerGateway customerGateway
+  - OrderGateway orderGateway
+  - ProductGateway productDataSource
+  - GenerateQrCodeGateway generateQrCodeGateway
+  + InsertProductUseCaseImpl(CustomerGateway customerGateway, OrderGateway orderGateway,GenerateQrCodeGateway generateQrCodeGateway
+}
+
+class FindOrderByStatusUseCaseImpl {
+  - orderGateway: OrderGateway
+  + FindOrderByStatusUseCaseImpl(OrderGateway)
+  + List<Order> findByStatus(OrderStatus)
+}
+
+class UpdateOrderStatusUseCaseImpl {
+  - orderDataSource: OrderGateway
+  + UpdateOrderStatusUseCaseImpl(OrderGateway)
+  + void updateOrderStatus(String, OrderStatus)
+}
+class GetCurrentOrdersUseCaseImpl {
+  - orderGateway: OrderGateway
+  + GetCurrentOrdersUseCaseImpl(OrderGateway)
+  + List<Order> getCurrentOrders()
+}
+
+
+'======= Datasources =============
+interface CustomerDataSource {
+  + void insert(Customer customer)
+  + Optional<Customer> findByCpf(String cpf)
+  + Optional<Customer> findByEmail(String email)
+}
+interface OrderDataSource {
+  + Order insert(Order order)
+  + void updateStatus(Order order)
+  + Optional<Order> findById(String id)
+  + List<Order> findByStatus(OrderStatus status)
+  + List<Order> getCurrentOrders(List<OrderStatus> statuses)
+
+}
+interface ProductDataSource {
+  + void insert(Product product);
+  + void update(Product product);
+  + void delete(String id);
+  + Optional<Product> findById(String id);
+  + List<Product> findByCategory(String category);
+}
+interface GenerateQrDataSource {
+  + ResponseQRCodeDTO generateQr(String orderId, String amount)
+}
+
+' ======= Controllers Impl =======
+class OrderControllerImpl {
+  - insertOrderUseCase: InsertOrderUseCase
+  - findOrderByStatusUseCase: FindOrderByStatusUseCase
+  - updateOrderStatusUseCase: UpdateOrderStatusUseCase
+  - orderPresenter: OrderPresenter
+  - getCurrentOrderUseCase: GetCurrentOrderUseCase
+  + OrderControllerImpl(OrderPresenter, CustomerDataSource, OrderDataSource, ProductDataSource, GenerateQrDataSource)
+  + InsertOrderResponseDTO insert(OrderRequestDTO)
+  + List<OrderResponseDTO> findByStatus(OrderStatus)
+  + void updateOrderStatus(String, UpdateOrderStatusDTO)
+  + List<CurrentOrdersDTO> getCurrentOrders()
+}
+class OrderRestController {
+  - orderController: OrderController
+  + OrderRestController(OrderPresenter, CustomerDataSource, OrderDataSource, ProductDataSource, GenerateQrDataSource)
+  + insert(orderRequestDTO: OrderRequestDTO): ResponseEntity<InsertOrderResponseDTO>
+  + getCurrentOrders(): ResponseEntity<List<CurrentOrdersDTO>>
+  + findByStatus(status: OrderStatus): ResponseEntity<List<OrderResponseDTO>>
+  + updateOrderStatus(orderId: String, updateOrderStatusDTO: UpdateOrderStatusDTO): ResponseEntity<Void>
+  + approve(headers: Map<String, String>, dto: MercadoPagoRequestDTO): ResponseEntity<String>
+}
+
+' ======= Relations =======
+
+CustomerGatewayImpl ..|> CustomerGateway
+GenerateQrCodeGatewayImpl ..|> GenerateQrCodeGateway
+ProductGatewayImpl ..|> ProductGateway
+OrderGatewayImpl --> OrderDataSource
+CustomerGatewayImpl --> CustomerDataSource
+ProductGatewayImpl --> ProductDataSource
+GenerateQrCodeGatewayImpl --> GenerateQrDataSource
+MercadoPagoApi ..|> GenerateQrDataSource
+CustomerRepository ..> CustomerDataSource
+ProductRepository ..> ProductDataSource
+OrderRepository ..> OrderDataSource
+
+
+OrderPresenter ..> OrderRequestDTO
+OrderPresenter ..> OrderResponseDTO
+OrderPresenter ..> Order
+OrderPresenter ..> InsertOrderResponseDTO
+OrderPresenter ..> OrderResponseDTO
+OrderPresenter ..> CurrentOrdersDTO
+OrderPresenter ..> InsertOrderResponseDTO
+OrderPresenter ..> QrCode
+OrderGatewayImpl ..|> OrderGateway
+
+
+Order --> Customer
+Order --> Product
+Order --> QrCode
+
+
+OrderRestController --> OrderController
+OrderRestController ..> OrderControllerImpl
+
+OrderControllerImpl --> OrderPresenter
+OrderControllerImpl --> OrderDataSource
+OrderControllerImpl ..> ProductDataSource
+OrderControllerImpl ..> CustomerDataSource
+OrderControllerImpl ..> GenerateQrDataSource
+OrderControllerImpl ..|> OrderController
+OrderControllerImpl --> InsertOrderUseCase
+OrderControllerImpl --> FindOrderByStatusUseCase
+OrderControllerImpl --> UpdateOrderStatusUseCase
+OrderControllerImpl --> GetCurrentOrderUseCase
+OrderControllerImpl ..> OrderGateway
+OrderControllerImpl ..> ProductGateway
+OrderControllerImpl ..> CustomerGateway
+OrderControllerImpl ..> GenerateQrCodeGateway
+
+InsertOrderUseCaseImpl ..|> InsertOrderUseCase
+FindOrderByStatusUseCaseImpl ..|> FindOrderByStatusUseCase
+
+UpdateOrderStatusUseCaseImpl ..|> UpdateOrderStatusUseCase
+
+GetCurrentOrdersUseCaseImpl ..|> GetCurrentOrderUseCase
+
+
+
+
+CurrentOrdersDTO o-- Customer : name
+InsertOrderResponseDTO o-- Order : orderId
+@enduml
