@@ -2,7 +2,7 @@ package br.com.fiap.baitersburger.infrastructure.web.controller;
 
 import br.com.fiap.baitersburger.domain.port.out.api.GenerateQrDataSource;
 import br.com.fiap.baitersburger.interfaceadapters.dto.request.CurrentOrdersDTO;
-import br.com.fiap.baitersburger.interfaceadapters.dto.request.mercadopago.MarketPaidRequestDTO;
+import br.com.fiap.baitersburger.interfaceadapters.dto.request.mercadopago.MercadoPagoRequestDTO;
 import br.com.fiap.baitersburger.interfaceadapters.dto.request.OrderRequestDTO;
 import br.com.fiap.baitersburger.interfaceadapters.dto.response.InsertOrderResponseDTO;
 import br.com.fiap.baitersburger.interfaceadapters.dto.response.OrderResponseDTO;
@@ -15,7 +15,6 @@ import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
 import br.com.fiap.baitersburger.interfaceadapters.presenter.OrderPresenter;
 import br.com.fiap.baitersburger.interfaceadapters.controller.OrderControllerImpl;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -67,7 +66,7 @@ public class OrderRestController {
 
     @PostMapping
     @RequestMapping("/webhook")
-    public ResponseEntity<String> approve(@RequestHeader Map<String, String> headers, @RequestBody MarketPaidRequestDTO dto) {
+    public ResponseEntity<String> approve(@RequestHeader Map<String, String> headers, @RequestBody MercadoPagoRequestDTO dto) {
 
         orderController.updateOrderStatus(dto.data().externalReference(),
                 new UpdateOrderStatusDTO(OrderStatus.RECEIVED.toString()));

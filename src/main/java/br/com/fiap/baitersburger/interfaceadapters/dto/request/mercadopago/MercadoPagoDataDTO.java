@@ -8,5 +8,5 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public record MarketPaidRequestDTO(MarketPaidDataDTO data){
+public record MercadoPagoDataDTO(String externalReference, String status) {
 }
