@@ -1,0 +1,240 @@
+@startuml
+' ======= Domain =======
+
+class Product {
+  - id: String
+  - productName: String
+  - price: BigDecimal
+  - category: String
+  - imagesUrls: List~String~
+  - description: String
+  + getId(): String
+  + setId(String): void
+  + getProductName(): String
+  + setProductName(String): void
+  + getCategory(): Category
+  + setCategory(Category): void
+  + getPrice(): BigDecimal
+  + setPrice(BigDecimal): void
+  + getDescription(): String
+  + setDescription(String): void
+  + getImagesUrls(): List<String>
+  + setImagesUrls(List<String>): void
+}
+
+' ======= DTOs =======
+           
+
+class ProductRequestDTO <<data>> {
+  - productName: String
+  - category: Category
+  - price: BigDecimal
+  - description: String
+  - imagesUrls: List<String>
+}
+class ProductResponseDTO <<data>>{
+  - productName: String
+  - category: Category
+  - price: BigDecimal
+  - description: String
+  - imagesUrls: List<String>
+}
+
+class ProductEntity <<data>> {
+  - id: String
+  - productName: String
+  - price: BigDecimal
+  - category: Category
+  - imagesUrls: List<String>
+  - description: String
+}
+
+'=========== interfaces ===================
+' ======= Presenters =======
+
+interface ProductPresenter {
+  + Product toProduct(ProductRequestDTO productRequestDTO)
+  + ProductResponseDTO toProductResponseDTO(Product product)
+  + Product toProduct(ProductEntity productEntity);
+}
+
+
+interface ProductDataSource {
+ + void insert(Product product)
+ + void update(Product product)
+ + void delete(String id)
+ + Optional<Product> findById(String id)
+ + List<Product> findByCategory(String category)
+}
+
+' ======= Controllers Interfaces =======
+interface ProductController {
+  + findProductsByCategory(category: String): List<ProductResponseDTO>
+  + findProductsById(id: String): ProductResponseDTO
+  + insert(productRequestDTO: ProductRequestDTO): void
+  + update(id: String, productRequestDTO: ProductRequestDTO): void
+  + delete(id: String): void
+}
+
+
+' ======= Gateways Interfaces =======
+interface ProductGateway {
+    void insert(Product product)
+    void update(Product product)
+    void delete(String id);
+    Optional<Product> findById(String id)
+    List<Product> findByCategory(String category)
+}
+
+' ========== Use Cases Intercaces =======
+interface InsertProductUseCase {
+ + void insert(Product product)
+}
+
+interface FindProductByCategoryUseCase {
+ + List<Product> findByCategory(String category)
+}
+
+interface UpdateProductUseCase {
+ + void update(Product product)
+}
+
+interface DeleteProductUseCase {
+ + void Delete(String id)
+}
+
+interface FindProductByIdUseCase {
+ + Product findById(String id)
+}
+
+
+
+
+' ======= Classes =======
+
+
+
+
+
+class ProductRepository {
+  - ProductMongoRepository productMongoRepository
+  - ProductEntityMapper productEntityMapper
+  + ProductRepository(ProductMongoRepository, ProductEntityMapper) <<constructor>>
+  + void insert(Product product)
+  + void update(Product product)
+  + void delete(String id)
+  + Optional<Product> findById(String id)
+  + List<Product> findByCategory(String category)
+}
+
+' ======= Use Cases =======
+
+
+class ProductGatewayImpl{
+  - productDataSource: ProductDataSource
+  + ProductGatewayImpl(ProductDataSource) <<constructor>>
+  + void insert(Product)
+  + void update(Product)
+  + void delete(String)
+  + Optional<Product> findById(String)
+  + List<Product> findByCategory(String)
+}
+
+class InsertProductUseCaseImpl {
+ - ProductGateway productGateway
+ + InsertProductUseCaseImpl(Product product)
+}
+
+class FindProductByCategoryUseCaseImpl {
+ - ProductGateway productGateway
+ + FindProductByCategoryUseCase(Product product)
+}
+
+class UpdateProductUseCaseImpl {
+ - ProductGateway productGateway
+ + update(Product product)
+}
+
+class DeleteProductUseCaseImpl {
+ - ProductGateway productGateway
+ + delete(String id)
+}
+
+class FindProductByIdUseCaseImpl {
+ - ProductGateway productGateway
+ + findById(String id)
+}
+
+
+
+' ======= Controllers Impl =======
+class ProductControllerImpl{
+  - productPresenter: ProductPresenter
+  - insertProductUseCase: InsertProductUseCase
+  - findProductByCategoryUseCase: FindProductByCategoryUseCase
+  - updateProductUseCase: UpdateProductUseCase
+  - deleteProductUseCase: DeleteProductUseCase
+  - findProductByIdUseCase: FindProductByIdUseCase
+  + ProductControllerImpl(ProductPresenter, ProductDataSource) <<constructor>>
+  + List<ProductResponseDTO> findProductsByCategory(String)
+  + ProductResponseDTO findProductsById(String)
+  + void insert(ProductRequestDTO)
+  + void update(String, ProductRequestDTO)
+  + void delete(String)
+}
+class ProductRestController{
+   - controller: ProductController
+  + ProductRestController(ProductPresenter, ProductDataSource) <<constructor>>
+  + findProductsByCategory(category: String): ResponseEntity~List~<ProductResponseDTO>>
+  + findProductsById(id: String): ResponseEntity<ProductResponseDTO>
+  + insert(productRequestDTO: ProductRequestDTO): ResponseEntity<Void>
+  + update(id: String, productRequestDTO: ProductRequestDTO): ResponseEntity<Void>
+  + delete(id: String): ResponseEntity<Void>
+}
+
+' ======= Relations =======
+
+
+ProductRestController --> ProductController
+ProductRestController ..> ProductControllerImpl
+
+ProductControllerImpl --> ProductPresenter
+ProductControllerImpl --> ProductDataSource
+ProductControllerImpl ..|> ProductController
+ProductControllerImpl --> InsertProductUseCase
+ProductControllerImpl --> FindProductByCategoryUseCase
+ProductControllerImpl --> UpdateProductUseCase
+ProductControllerImpl --> DeleteProductUseCase
+ProductControllerImpl --> FindProductByIdUseCase
+
+ProductGatewayImpl ..|> ProductGateway
+ProductControllerImpl ..> ProductGateway
+
+ProductPresenter ..> ProductRequestDTO
+ProductPresenter ..> ProductResponseDTO
+ProductPresenter ..> Product
+ProductPresenter ..> ProductEntity
+
+ProductRepository ..|> ProductDataSource
+
+InsertProductUseCaseImpl ..|> InsertProductUseCase
+FindProductByCategoryUseCaseImpl ..|> FindProductByCategoryUseCase
+UpdateProductUseCaseImpl ..|> UpdateProductUseCase
+DeleteProductUseCaseImpl ..|> DeleteProductUseCase
+FindProductByIdUseCaseImpl ..> FindProductByIdUseCase
+
+InsertProductUseCaseImpl --> ProductGateway
+FindProductByCategoryUseCaseImpl --> ProductGateway
+UpdateProductUseCaseImpl --> ProductGateway
+DeleteProductUseCaseImpl --> ProductGateway
+FindProductByIdUseCaseImpl --> ProductGateway
+
+InsertProductUseCaseImpl ..> Product
+FindProductByCategoryUseCaseImpl ..> Product
+UpdateProductUseCaseImpl ..> Product
+DeleteProductUseCaseImpl ..> Product
+FindProductByIdUseCaseImpl ..> Product
+
+
+
+@enduml
