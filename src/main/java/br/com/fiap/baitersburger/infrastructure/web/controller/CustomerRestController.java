@@ -2,7 +2,6 @@ package br.com.fiap.baitersburger.infrastructure.web.controller;
 
 import br.com.fiap.baitersburger.interfaceadapters.dto.request.CustomerRequestDTO;
 import br.com.fiap.baitersburger.interfaceadapters.dto.response.CustomerResponseDTO;
-import br.com.fiap.baitersburger.domain.model.Customer;
 import br.com.fiap.baitersburger.domain.port.in.controller.CustomerController;
 import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
 import br.com.fiap.baitersburger.interfaceadapters.presenter.CustomerPresenter;
@@ -29,7 +28,7 @@ public class CustomerRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> insert(@Valid @RequestBody CustomerRequestDTO customerRequestDTO) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody CustomerRequestDTO customerRequestDTO) {
 
         customerController.insert(customerRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
