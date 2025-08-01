@@ -64,13 +64,12 @@ public class OrderRestController {
     }
 
 
-    @PostMapping
-    @RequestMapping("/webhook")
+    @PostMapping("/webhook")
     public ResponseEntity<String> approve(@RequestHeader Map<String, String> headers, @RequestBody MercadoPagoRequestDTO dto) {
 
         orderController.updateOrderStatus(dto.data().externalReference(),
                 new UpdateOrderStatusDTO(OrderStatus.RECEIVED.toString()));
 
-        return ResponseEntity.ok("thankyou");
+        return ResponseEntity.ok().build();
     }
 }
