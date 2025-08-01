@@ -26,9 +26,9 @@ spec:
                   key: connectionString
             - name: MERCADO_PAGO_ACCESS_TOKEN
               valueFrom:
-                configMapKeyRef:
-                  name: mercado-pago-config
-                  key: MERCADO_PAGO_ACCESS_TOKEN
+                secretKeyRef:
+                  name: mercado-pago-secret
+                  key: accessToken
             - name: MERCADO_PAGO_EXTERNAL_POS_ID
               valueFrom:
                 configMapKeyRef:
