@@ -3,6 +3,7 @@ package br.com.fiap.baitersburger.interfaceadapters.repository;
 import br.com.fiap.baitersburger.domain.enums.OrderStatus;
 import br.com.fiap.baitersburger.domain.model.Order;
 import br.com.fiap.baitersburger.domain.port.out.repository.OrderDataSource;
+import br.com.fiap.baitersburger.infrastructure.persistence.entity.OrderEntity;
 import br.com.fiap.baitersburger.infrastructure.persistence.mapper.OrderEntityMapper;
 import br.com.fiap.baitersburger.infrastructure.persistence.repository.OrderMongoRepository;
 import org.springframework.stereotype.Component;
@@ -22,9 +23,9 @@ public class OrderRepository implements OrderDataSource {
     }
 
     @Override
-    public void insert(Order order) {
+    public Order insert(Order order) {
         var orderEntity = orderEntityMapper.toOrderEntity(order);
-        orderMongoRepository.insert(orderEntity);
+        return orderEntityMapper.toOrder(orderMongoRepository.insert(orderEntity));
     }
 
     @Override
@@ -45,4 +46,11 @@ public class OrderRepository implements OrderDataSource {
                 map(orderEntityMapper::toOrder).
                 toList();
     }
+
+    @Override
+    public List<Order> getCurrentOrders(List<OrderStatus> statuses) {
+        return orderMongoRepository.findByStatuses(statuses).stream().map(orderEntityMapper::toOrder).toList();
+    }
+
+
 }

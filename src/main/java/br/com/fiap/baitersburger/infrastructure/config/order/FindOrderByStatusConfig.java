@@ -13,4 +13,6 @@ public class FindOrderByStatusConfig {
     public FindOrderByStatusUseCase findOrderByStatusUseCase(OrderGateway orderGateway) {
         return new FindOrderByStatusUseCaseImpl(orderGateway);
     }
+
+
 }

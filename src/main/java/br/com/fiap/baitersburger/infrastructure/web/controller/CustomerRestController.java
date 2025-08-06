@@ -2,7 +2,6 @@ package br.com.fiap.baitersburger.infrastructure.web.controller;
 
 import br.com.fiap.baitersburger.interfaceadapters.dto.request.CustomerRequestDTO;
 import br.com.fiap.baitersburger.interfaceadapters.dto.response.CustomerResponseDTO;
-import br.com.fiap.baitersburger.domain.model.Customer;
 import br.com.fiap.baitersburger.domain.port.in.controller.CustomerController;
 import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
 import br.com.fiap.baitersburger.interfaceadapters.presenter.CustomerPresenter;
@@ -17,12 +16,11 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerRestController {
 
     private final CustomerController customerController;
-    private final CustomerPresenter customerPresenter;
-    
+
     public CustomerRestController(CustomerPresenter customerPresenter, CustomerDataSource dataSource) {
-        this.customerPresenter = customerPresenter;
-        this.customerController = new CustomerControllerImpl(this.customerPresenter,dataSource);
+        this.customerController = new CustomerControllerImpl(customerPresenter,dataSource);
     }
+
 
     @GetMapping("/{cpf}")
     public ResponseEntity<CustomerResponseDTO> find(@PathVariable final String cpf) {
@@ -31,7 +29,7 @@ public class CustomerRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> insert(@Valid @RequestBody CustomerRequestDTO customerRequestDTO) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody CustomerRequestDTO customerRequestDTO) {
 
         customerController.insert(customerRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();

@@ -43,7 +43,7 @@ resource "aws_eks_node_group" "worker_nodes" {
   node_role_arn   = data.aws_iam_role.eks_cluster_role.arn
   subnet_ids      = data.aws_subnets.filtered_for_eks.ids
 
-  instance_types = ["t2.micro"]
+  instance_types = ["t2.medium"]
   scaling_config {
     desired_size = 1
     min_size     = 1

@@ -4,6 +4,7 @@ import br.com.fiap.baitersburger.domain.exception.ExceptionMessages;
 import br.com.fiap.baitersburger.domain.exception.NotFoundException;
 
 public enum OrderStatus {
+    REQUESTED("REQUESTED"),
     RECEIVED("RECEIVED"),
     PREPARING("PREPARING"),
     READY("READY"),

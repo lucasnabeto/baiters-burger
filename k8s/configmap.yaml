@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mercado-pago-config
+  namespace: baitersburger
+data:
+  MERCADO_PAGO_EXTERNAL_POS_ID: "BAIT"
+  MERCADO_PAGO_URL: "https://api.mercadopago.com/v1/orders"

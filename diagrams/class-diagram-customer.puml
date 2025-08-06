@@ -1,0 +1,156 @@
+@startuml
+' ======= Domain =======
+
+class Customer {
+  - cpf: String
+  - name: String
+  - email: String
+}
+
+' ======= DTOs =======
+
+
+class CustomerResponseDTO <<Data>> {
+  private String cpf
+  private String name
+  private String email
+}
+
+class CustomerRequestDTO {
+  private String cpf
+  private String name
+  private String email
+}
+
+
+
+
+'=========== interfaces ===================
+
+
+interface CustomerDataSource {
+
+  + void insert(Customer customer)
+  + Optional<Customer> findByCpf(String cpf)
+  + Optional<Customer> findByEmail(String email)
+}
+
+
+interface CustomerPresenter {
+  + Customer toCustomer(CustomerRequestDTO customerRequestDTO)
+  + CustomerResponseDTO toCustomerResponseDTO(Customer customer)
+}
+
+
+interface CustomerController {
+  + CustomerResponseDTO find(String cpf)
+  + void insert(CustomerRequestDTO dto);
+}
+
+
+
+interface CustomerGateway {
+
+  + void insert(Customer customer)
+  + Optional<Customer> findByCpf(String cpf)
+  + Optional<Customer> findByEmail(String email)
+
+}
+
+
+interface FindCustomerByCpfUseCase {
+  Customer find(String cpf)
+}
+
+interface InsertCustomerUseCase {
+  void insert(Customer customer)
+}
+
+
+' ======= Classes =======
+
+class CustomerGatewayImpl {
+  - CustomerDataSource dataSource;
+  + CustomerGatewayImpl(CustomerDataSource dataSource) <<constructor>>
+  + void insert(Customer customer)
+  + Optional<Customer> findByCpf(String cpf)
+  + Optional<Customer> findByEmail(String email)
+
+}
+
+class CustomerRestController{
+  - CustomerController customerController
+  + ResponseEntity<CustomerResponseDTO> find(final String cpf)
+  + ResponseEntity<Void> insert(CustomerRequestDTO customerRequestDTO)
+}
+
+class FindCustomerByCpfUseCaseImpl{
+  - CustomerGateway customerGateway
+  + FindCustomerByCpfUseCaseImpl(CustomerGateway customerGateway)
+  + Customer find(String cpf)
+}
+
+class InsertCustomerUseCaseImpl {
+  - CustomerGateway customerGateway
+  + InsertCustomerUseCaseImpl(CustomerGateway customerGateway)
+  + insert(Customer newCustomer)
+}
+
+class CustomerRepository {
+  - CustomerMongoRepository customerRepository
+  - CustomerEntityMapper customerEntityMapper
+  + CustomerRepository(CustomerMongoRepository customerRepository, CustomerEntityMapper customerEntityMapper)
+  + void insert(Customer customer)
+  + Optional<Customer> findByCpf(String cpf)
+  + Optional<Customer> findByEmail(String email)
+}
+
+
+
+
+
+
+' ======= Controllers Impl =======
+
+
+class CustomerControllerImpl{
+  - CustomerPresenter customerPresenter;
+  - FindCustomerByCpfUseCase findCustomerByCpfUseCase;
+  - InsertCustomerUseCaseImpl insertCustomerUseCaseImpl;
+  CustomerControllerImpl(CustomerPresenter customerPresenter, CustomerDataSource dataSource) <<constructor>>
+  + CustomerResponseDTO find(String cpf)
+  + void insert(CustomerRequestDTO dto);
+}
+
+' ======= Relations =======
+
+CustomerRestController ..> CustomerResponseDTO
+CustomerRestController --> CustomerController
+CustomerRestController ..> CustomerRequestDTO
+CustomerRestController ..> CustomerPresenter
+CustomerRestController ..> CustomerDataSource
+
+CustomerRestController --> CustomerControllerImpl
+
+CustomerControllerImpl ..|> CustomerController
+CustomerControllerImpl --> InsertCustomerUseCase
+CustomerControllerImpl --> FindCustomerByCpfUseCase
+
+CustomerGatewayImpl ..|> CustomerGateway
+
+InsertCustomerUseCaseImpl ..|> InsertCustomerUseCase
+InsertCustomerUseCaseImpl ..> Customer
+InsertCustomerUseCaseImpl ..> CustomerGateway
+
+FindCustomerByCpfUseCaseImpl ..|> FindCustomerByCpfUseCase
+FindCustomerByCpfUseCaseImpl ..> Customer
+FindCustomerByCpfUseCaseImpl ..> CustomerGateway
+
+CustomerRepository ..|> CustomerDataSource
+
+CustomerPresenter ..> CustomerRequestDTO
+CustomerPresenter ..> CustomerResponseDTO
+CustomerPresenter ..> Customer
+
+
+@enduml

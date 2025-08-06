@@ -8,7 +8,10 @@ import br.com.fiap.baitersburger.domain.model.Product;
 import br.com.fiap.baitersburger.domain.port.in.usecase.order.InsertOrderUseCase;
 import br.com.fiap.baitersburger.domain.port.out.gateway.CustomerGateway;
 import br.com.fiap.baitersburger.domain.port.out.gateway.OrderGateway;
+import br.com.fiap.baitersburger.domain.port.out.gateway.GenerateQrCodeGateway;
 import br.com.fiap.baitersburger.domain.port.out.gateway.ProductGateway;
+import br.com.fiap.baitersburger.domain.valueobject.QrCode;
+import br.com.fiap.baitersburger.interfaceadapters.dto.response.mercadopago.ResponseQRCodeDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,17 +20,21 @@ public class InsertOrderUseCaseImpl implements InsertOrderUseCase {
     private final CustomerGateway customerGateway;
     private final OrderGateway orderGateway;
     private final ProductGateway productDataSource;
+    private final GenerateQrCodeGateway generateQrCodeGateway;
+
 
     public InsertOrderUseCaseImpl(CustomerGateway customerGateway,
                                   OrderGateway orderGateway,
-                                  ProductGateway productGateway) {
+                                  ProductGateway productGateway,
+                                  GenerateQrCodeGateway generateQrCodeGateway) {
         this.customerGateway = customerGateway;
         this.orderGateway = orderGateway;
         this.productDataSource = productGateway;
+        this.generateQrCodeGateway = generateQrCodeGateway;
     }
 
     @Override
-    public void insert(List<String> productsIds, String customerCpf) {
+    public Order insert(List<String> productsIds, String customerCpf) {
         List<Product> products = productsIds.stream()
                 .map(id -> productDataSource
                         .findById(id)
@@ -43,10 +50,18 @@ public class InsertOrderUseCaseImpl implements InsertOrderUseCase {
         }
 
         order.setCreatedAt(LocalDateTime.now());
-        order.setStatus(OrderStatus.RECEIVED);
+        order.setStatus(OrderStatus.REQUESTED);
         order.setProducts(products);
         order.calculateTotalPrice();
 
-        orderGateway.insert(order);
+        Order newOrder = orderGateway.insert(order);
+
+
+        ResponseQRCodeDTO responseQRCodeDTO = generateQrCodeGateway.generateQr(newOrder.getId(), newOrder.getTotalPrice().toString());
+        QrCode qrcode = new QrCode(responseQRCodeDTO.externalReference(), responseQRCodeDTO.typeResponse().qrData());
+
+        newOrder.setQrCode(qrcode);
+
+        return newOrder;
     }
 }
