@@ -13,7 +13,7 @@ public class CustomerMySqlEntity {
 
     private String cpf;
 
-    private String nome;
+    private String name;
 
     private String email;
 }
