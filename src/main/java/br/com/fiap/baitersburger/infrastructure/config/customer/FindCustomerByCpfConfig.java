@@ -6,9 +6,9 @@ import br.com.fiap.baitersburger.domain.port.out.gateway.CustomerGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-//@Configuration
+@Configuration
 public class FindCustomerByCpfConfig {
-    //@Bean
+    @Bean
     public FindCustomerByCpfUseCase findCustomerByCpfUseCase(CustomerGateway customerGateway) {
         return new FindCustomerByCpfUseCaseImpl(customerGateway);
     }

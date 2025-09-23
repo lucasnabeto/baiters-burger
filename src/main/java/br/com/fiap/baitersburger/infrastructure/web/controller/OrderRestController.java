@@ -30,8 +30,8 @@ public class OrderRestController {
 
     public OrderRestController(OrderPresenter orderPresenter,
                                @Qualifier("customerDataSourceMySqlImpl") CustomerDataSource customerDataSource,
-                               OrderDataSource orderDataSource,
-                               ProductDataSource productDataSource,
+                               @Qualifier("orderDataSourceMySqlImpl") OrderDataSource orderDataSource,
+                               @Qualifier("productDataSourceMySqlImpl")ProductDataSource productDataSource,
                                GenerateQrDataSource generateQrDataSource) {
         this.orderController = new OrderControllerImpl(orderPresenter, customerDataSource, orderDataSource, productDataSource, generateQrDataSource);
     }
