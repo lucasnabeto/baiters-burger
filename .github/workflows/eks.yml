@@ -23,18 +23,6 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: us-east-1
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Init
-        run: terraform -chdir=infra init
-
-      - name: Terraform Plan
-        run: terraform -chdir=infra plan
-
-      - name: Terraform Apply
-        run: terraform -chdir=infra apply -auto-approve
-
       - name: Configure kubectl
         run: |
           aws eks update-kubeconfig --region us-east-1 --name baitersburger-cluster
