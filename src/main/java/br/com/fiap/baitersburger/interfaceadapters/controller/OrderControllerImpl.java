@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+
 public class OrderControllerImpl implements OrderController {
     private final InsertOrderUseCase insertOrderUseCase;
     private final FindOrderByStatusUseCase findOrderByStatusUseCase;

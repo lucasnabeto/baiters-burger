@@ -7,6 +7,7 @@ import br.com.fiap.baitersburger.interfaceadapters.dto.request.ProductRequestDTO
 import br.com.fiap.baitersburger.interfaceadapters.dto.response.ProductResponseDTO;
 import br.com.fiap.baitersburger.interfaceadapters.presenter.ProductPresenter;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,8 @@ import java.util.List;
 public class ProductRestController {
     private final ProductController controller;
 
-    public ProductRestController(ProductPresenter productPresenter, ProductDataSource dataSource) {
+    public ProductRestController(ProductPresenter productPresenter,
+                                 @Qualifier("productDataSourceMySqlImpl")ProductDataSource dataSource) {
         this.controller = new ProductControllerImpl(productPresenter, dataSource);
     }
 
