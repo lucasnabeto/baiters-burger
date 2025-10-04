@@ -19,6 +19,12 @@ spec:
           ports:
             - containerPort: 8080
           env:
+            - name: MYSQL_ENDPOINT
+                value: ${MYSQL_ENDPOINT_PLACEHOLDER}
+            - name: USER_MYSQL
+                value: ${USER_MYSQL_PLACEHOLDER}   
+            - name: PASSWORD_MYSQL
+                value: ${PASSWORD_MYSQL_PLACEHOLDER}
             - name: SPRING_DATA_MONGODB_URI
               valueFrom:
                 secretKeyRef:

@@ -27,10 +27,17 @@ jobs:
         run: |
           aws eks update-kubeconfig --region us-east-1 --name baitersburger-cluster
 
-      - name: Deploy k8s
+        
+      - name: Deploy k8s com injeção de variáveis
         run: |
           sed -i 's|000000000000.dkr.ecr.us-east-1.amazonaws.com/baitersburger:placeholder|${{ inputs.image_uri }}|' k8s/app-deployment.yaml
-          
+         
+          sed -i 's|${MYSQL_ENDPOINT_PLACEHOLDER}|${{ secrets.MYSQL_ENDPOINT }}|g' k8s/app-deployment.yaml
+
+          sed -i 's|${USER_MYSQL_PLACEHOLDER}|${{ secrets.USER_MYSQL }}|g' k8s/app-deployment.yaml
+
+          sed -i 's|${PASSWORD_MYSQL_PLACEHOLDER}|${{ secrets.PASSWORD_MYSQL }}|g' k8s/app-deployment.yaml
+
           kubectl apply -f k8s/namespace.yaml
           
           kubectl create secret generic atlas-connection-secret \
