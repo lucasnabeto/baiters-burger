@@ -4,7 +4,7 @@
 
 Este projeto é uma aplicação Java com Spring Boot e MongoDB que segue os princípios da Clean Architecture com camadas distintas para domínio, aplicação, adaptadores de interface e frameworks & drivers.
 
-O código de infraestrutura (Docker, K8s, Terraform) é mantido separado do código da aplicação, como consta na hierarquia abaixo:
+O código de infraestrutura (Docker, K8s, Terraform) é mantido em um repositório separado: https://github.com/lucasnabeto/baiters-burger-infra.Hierarquia do projeto abaixo:
 
 ```
 BaitersBurger/
@@ -12,10 +12,6 @@ BaitersBurger/
 │   └── workflows/  # Definição das esteiras do GitHub Actions
 ├── docs/
 │   └── images/
-├── infra/  # Configurações de infraestrutura para criação do cluster EKS
-│   ├── eks.tf
-│   ├── provider.tf
-│   └── variables.tf
 ├── k8s/                     # Definição dos manifestos do Kubernetes
 │   ├── app-deployment.yaml
 │   ├── app-service.yaml
@@ -111,6 +107,3 @@ Para parar e remover os containers, execute:
 docker-compose down
 ```
 
-## Observações
-
--   Caso utilize o MongoDB local, o usuário e senha estão definidos como `root` e `baitersburger`, respectivamente.
