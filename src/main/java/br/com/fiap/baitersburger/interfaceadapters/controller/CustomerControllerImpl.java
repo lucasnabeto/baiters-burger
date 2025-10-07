@@ -10,9 +10,7 @@ import br.com.fiap.baitersburger.domain.port.out.gateway.CustomerGateway;
 import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
 import br.com.fiap.baitersburger.interfaceadapters.presenter.CustomerPresenter;
 import br.com.fiap.baitersburger.interfaceadapters.gateway.CustomerGatewayImpl;
-import org.springframework.stereotype.Component;
 
-@Component
 public class CustomerControllerImpl implements CustomerController {
 
     private final CustomerPresenter customerPresenter;

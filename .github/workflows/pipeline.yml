@@ -1,5 +1,8 @@
 name: BaitersBurger Pipeline
-
+env:
+  MYSQL_ENDPOINT: ${{ secrets.MYSQL_ENDPOINT }}
+  USER_MYSQL: ${{ secrets.USER_MYSQL }}
+  PASSWORD_MYSQL: ${{ secrets.PASSWORD_MYSQL }}
 on:
   pull_request:
     types:

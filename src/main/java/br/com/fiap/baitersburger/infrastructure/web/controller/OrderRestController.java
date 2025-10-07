@@ -15,6 +15,7 @@ import br.com.fiap.baitersburger.domain.port.out.repository.ProductDataSource;
 import br.com.fiap.baitersburger.interfaceadapters.presenter.OrderPresenter;
 import br.com.fiap.baitersburger.interfaceadapters.controller.OrderControllerImpl;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +29,9 @@ public class OrderRestController {
     private final OrderController orderController;
 
     public OrderRestController(OrderPresenter orderPresenter,
-                               CustomerDataSource customerDataSource,
-                               OrderDataSource orderDataSource,
-                               ProductDataSource productDataSource,
+                               @Qualifier("customerDataSourceMySqlImpl") CustomerDataSource customerDataSource,
+                               @Qualifier("orderDataSourceMySqlImpl") OrderDataSource orderDataSource,
+                               @Qualifier("productDataSourceMySqlImpl")ProductDataSource productDataSource,
                                GenerateQrDataSource generateQrDataSource) {
         this.orderController = new OrderControllerImpl(orderPresenter, customerDataSource, orderDataSource, productDataSource, generateQrDataSource);
     }

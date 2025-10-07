@@ -4,7 +4,7 @@
 
 Este projeto é uma aplicação Java com Spring Boot e MongoDB que segue os princípios da Clean Architecture com camadas distintas para domínio, aplicação, adaptadores de interface e frameworks & drivers.
 
-O código de infraestrutura (Docker, K8s, Terraform) é mantido separado do código da aplicação, como consta na hierarquia abaixo:
+O código de infraestrutura (Docker, K8s, Terraform) é mantido em um repositório separado: https://github.com/lucasnabeto/baiters-burger-infra. Hierarquia do projeto abaixo:
 
 ```
 BaitersBurger/
@@ -12,10 +12,6 @@ BaitersBurger/
 │   └── workflows/  # Definição das esteiras do GitHub Actions
 ├── docs/
 │   └── images/
-├── infra/  # Configurações de infraestrutura para criação do cluster EKS
-│   ├── eks.tf
-│   ├── provider.tf
-│   └── variables.tf
 ├── k8s/                     # Definição dos manifestos do Kubernetes
 │   ├── app-deployment.yaml
 │   ├── app-service.yaml
@@ -83,10 +79,12 @@ Para mais detalhes sobre a aplicação, foi disponibilizado um vídeo explicando
     cd BaitersBurger
     ```
 
-2. Configure a URI do MongoDB:
+2. Configure a URI do MySql:
 
     - Vá até o arquivo "application.properties"
-    - Modifique "spring.data.mongodb.uri" para apontar para o Mongo Atlas ou para o Mongo que será executado localmente através do docker compose
+    - Modifique "spring.datasource.url" para apontar para a base MySql escolhida.
+    - Modifique "spring.datasource.username" para o usuário da base MySql.
+    - Modifique "pring.datasource.password" para asenha da base MySql.
 
 3. Construa e suba os containers:
 
@@ -96,7 +94,6 @@ Para mais detalhes sobre a aplicação, foi disponibilizado um vídeo explicando
 
     Isso irá:
 
-    - Subir o MongoDB na porta 27017
     - Subir a aplicação na porta 8080
 
 4. Acesse a aplicação:
@@ -111,6 +108,3 @@ Para parar e remover os containers, execute:
 docker-compose down
 ```
 
-## Observações
-
--   Caso utilize o MongoDB local, o usuário e senha estão definidos como `root` e `baitersburger`, respectivamente.

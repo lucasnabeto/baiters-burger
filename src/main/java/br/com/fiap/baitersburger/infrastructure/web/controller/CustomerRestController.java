@@ -7,6 +7,8 @@ import br.com.fiap.baitersburger.domain.port.out.repository.CustomerDataSource;
 import br.com.fiap.baitersburger.interfaceadapters.presenter.CustomerPresenter;
 import br.com.fiap.baitersburger.interfaceadapters.controller.CustomerControllerImpl;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +19,9 @@ public class CustomerRestController {
 
     private final CustomerController customerController;
 
-    public CustomerRestController(CustomerPresenter customerPresenter, CustomerDataSource dataSource) {
+    @Autowired
+    public CustomerRestController(CustomerPresenter customerPresenter, @Qualifier("customerDataSourceMySqlImpl") CustomerDataSource dataSource) {
+
         this.customerController = new CustomerControllerImpl(customerPresenter,dataSource);
     }
 
