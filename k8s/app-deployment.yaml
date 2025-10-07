@@ -1,48 +1,54 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: baitersburger-app
-  namespace: baitersburger
+    name: baitersburger-app
+    namespace: baitersburger
 spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: baitersburger-app
-  template:
-    metadata:
-      labels:
-        app: baitersburger-app
-    spec:
-      containers:
-        - name: baitersburger-container
-          image: "000000000000.dkr.ecr.us-east-1.amazonaws.com/baitersburger:placeholder"
-          ports:
-            - containerPort: 8080
-          env:
-            - name: SPRING_DATA_MONGODB_URI
-              valueFrom:
-                secretKeyRef:
-                  name: atlas-connection-secret
-                  key: connectionString
-            - name: MERCADO_PAGO_ACCESS_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: mercado-pago-secret
-                  key: accessToken
-            - name: MERCADO_PAGO_EXTERNAL_POS_ID
-              valueFrom:
-                configMapKeyRef:
-                  name: mercado-pago-config
-                  key: MERCADO_PAGO_EXTERNAL_POS_ID
-            - name: MERCADO_PAGO_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: mercado-pago-config
-                  key: MERCADO_PAGO_URL
-          resources:
-            requests:
-              cpu: "100m"
-              memory: "256Mi"
-            limits:
-              cpu: "500m"
-              memory: "512Mi"
+    replicas: 2
+    selector:
+        matchLabels:
+            app: baitersburger-app
+    template:
+        metadata:
+            labels:
+                app: baitersburger-app
+        spec:
+            containers:
+                - name: baitersburger-container
+                  image: "000000000000.dkr.ecr.us-east-1.amazonaws.com/baitersburger:placeholder"
+                  ports:
+                      - containerPort: 8080
+                  env:
+                      - name: MYSQL_ENDPOINT
+                        value: MYSQL_ENDPOINT_PLACEHOLDER
+                      - name: USER_MYSQL
+                        value: USER_MYSQL_PLACEHOLDER
+                      - name: PASSWORD_MYSQL
+                        value: PASSWORD_MYSQL_PLACEHOLDER
+                      - name: SPRING_DATA_MONGODB_URI
+                        valueFrom:
+                            secretKeyRef:
+                                name: atlas-connection-secret
+                                key: connectionString
+                      - name: MERCADO_PAGO_ACCESS_TOKEN
+                        valueFrom:
+                            secretKeyRef:
+                                name: mercado-pago-secret
+                                key: accessToken
+                      - name: MERCADO_PAGO_EXTERNAL_POS_ID
+                        valueFrom:
+                            configMapKeyRef:
+                                name: mercado-pago-config
+                                key: MERCADO_PAGO_EXTERNAL_POS_ID
+                      - name: MERCADO_PAGO_URL
+                        valueFrom:
+                            configMapKeyRef:
+                                name: mercado-pago-config
+                                key: MERCADO_PAGO_URL
+                  resources:
+                      requests:
+                          cpu: "100m"
+                          memory: "256Mi"
+                      limits:
+                          cpu: "500m"
+                          memory: "512Mi"
